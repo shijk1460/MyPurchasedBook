@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|d:\\workstation\\mypurchasedbook\\mypurchasedbook\\mypurchasedbook\\wwwroot\\scripts\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|solutionrelative:mypurchasedbook\\wwwroot\\scripts\\layout.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|d:\\workstation\\mypurchasedbook\\mypurchasedbook\\mypurchasedbook\\class\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|solutionrelative:mypurchasedbook\\class\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|d:\\workstation\\mypurchasedbook\\mypurchasedbook\\mypurchasedbook\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|solutionrelative:mypurchasedbook\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|d:\\workstation\\mypurchasedbook\\mypurchasedbook\\mypurchasedbook\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|solutionrelative:mypurchasedbook\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|d:\\workstation\\mypurchasedbook\\mypurchasedbook\\mypurchasedbook\\class\\bookhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|solutionrelative:mypurchasedbook\\class\\bookhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|d:\\workstation\\mypurchasedbook\\mypurchasedbook\\mypurchasedbook\\wwwroot\\scripts\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|solutionrelative:mypurchasedbook\\wwwroot\\scripts\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|d:\\workstation\\mypurchasedbook\\mypurchasedbook\\mypurchasedbook\\class\\dbhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0155D4A-0604-43AB-9CBC-7334093F9BCD}|MyPurchasedBook\\MyPurchasedBook.csproj|solutionrelative:mypurchasedbook\\class\\dbhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Utils.cs",
+              "DocumentMoniker": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Class\\Utils.cs",
+              "RelativeDocumentMoniker": "MyPurchasedBook\\Class\\Utils.cs",
+              "ToolTip": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Class\\Utils.cs",
+              "RelativeToolTip": "MyPurchasedBook\\Class\\Utils.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-03T10:51:21.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DbHelper.cs",
+              "DocumentMoniker": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Class\\DbHelper.cs",
+              "RelativeDocumentMoniker": "MyPurchasedBook\\Class\\DbHelper.cs",
+              "ToolTip": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Class\\DbHelper.cs",
+              "RelativeToolTip": "MyPurchasedBook\\Class\\DbHelper.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAQwA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-03T05:45:56.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookController.cs",
+              "DocumentMoniker": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Controllers\\BookController.cs",
+              "RelativeDocumentMoniker": "MyPurchasedBook\\Controllers\\BookController.cs",
+              "ToolTip": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Controllers\\BookController.cs",
+              "RelativeToolTip": "MyPurchasedBook\\Controllers\\BookController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-06T01:33:14.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Home.js",
+              "DocumentMoniker": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\wwwroot\\Scripts\\Home\\Home.js",
+              "RelativeDocumentMoniker": "MyPurchasedBook\\wwwroot\\Scripts\\Home\\Home.js",
+              "ToolTip": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\wwwroot\\Scripts\\Home\\Home.js",
+              "RelativeToolTip": "MyPurchasedBook\\wwwroot\\Scripts\\Home\\Home.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-09-06T01:24:25.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "MyPurchasedBook\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "MyPurchasedBook\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAB8AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-06T01:19:05.975Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookHelper.cs",
+              "DocumentMoniker": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Class\\BookHelper.cs",
+              "RelativeDocumentMoniker": "MyPurchasedBook\\Class\\BookHelper.cs",
+              "ToolTip": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\Class\\BookHelper.cs",
+              "RelativeToolTip": "MyPurchasedBook\\Class\\BookHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-04T13:32:55.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Layout.js",
+              "DocumentMoniker": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\wwwroot\\Scripts\\Layout.js",
+              "RelativeDocumentMoniker": "MyPurchasedBook\\wwwroot\\Scripts\\Layout.js",
+              "ToolTip": "D:\\WorkStation\\MyPurchasedBook\\MyPurchasedBook\\MyPurchasedBook\\wwwroot\\Scripts\\Layout.js",
+              "RelativeToolTip": "MyPurchasedBook\\wwwroot\\Scripts\\Layout.js",
+              "ViewState": "AgIAACsBAAAAAAAAAAAIwGwBAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-09-04T12:33:55.3Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+@MyPurchasedBook_HostAddress = http://localhost:5190
+
+GET {{MyPurchasedBook_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{MyPurchasedBook_HostAddress}}/api/Book/GetBook
+Accept: application/json

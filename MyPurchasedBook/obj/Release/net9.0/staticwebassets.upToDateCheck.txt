@@ -1,0 +1,14 @@
+wwwroot\Contents\css\bootstrap.min.css
+wwwroot\Contents\img\unsplash-photo-1.jpg
+wwwroot\Contents\img\unsplash-photo-2.jpg
+wwwroot\Contents\img\unsplash-photo-3.jpg
+wwwroot\Contents\js\bootstrap.bundle.min.js
+wwwroot\Contents\js\jquery-3.7.1.min.js
+wwwroot\Contents\js\sweetalert2@11.js
+wwwroot\Contents\logo\letter-m.png
+wwwroot\Scripts\Layout.js
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\wwwroot\Contents\css\bootstrap.min.css
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\wwwroot\Contents\js\bootstrap.bundle.min.js
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\wwwroot\Contents\js\jquery-3.7.1.min.js
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\wwwroot\Contents\js\sweetalert2@11.js
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\wwwroot\Scripts\Layout.js

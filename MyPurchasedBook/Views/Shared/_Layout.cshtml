@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Purchased Book</title>
+    <link rel="icon" type="image/x-icon" href="Contents/logo/letter-m.png">
+    <link href="Contents/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="Contents/css/toastify.min.css" rel="stylesheet"/>
+    <link href="Contents/css/select2.min.css" rel="stylesheet" />
+    <style>
+        input + span {
+            position: relative;
+        }
+
+        input:invalid {
+            border: 2px solid red;
+        }
+
+        #btnAdd {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: forestgreen;
+            color: white;
+            cursor: pointer;
+            border-radius: 90px;
+        }
+
+            #btnAdd:hover {
+                background-color: #555;
+            }
+
+        .swal-height {
+            height: max-content;
+            width: 600px;
+        }
+
+        @@media (max-width: 800px) {
+            .swal-height {
+                height: 300px;
+                width: 300px;
+            }
+        }
+
+        .swal2-close {
+            background-color: #555;
+            border-radius: 90px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="px-3 py-2">
+            <div class="d-flex align-items-center justify-content-center mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+                <a href="/"><img class="bi me-2" width="52" height="52" aria-hidden="true" src="Contents/logo/letter-m.png" /></a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    @Html.Partial("~/Views/Shared/_ModalAddBook.cshtml")
+    <script src="Contents/js/bootstrap.bundle.min.js"></script>
+    <script src="Contents/js/jquery-3.7.1.min.js"></script>
+    <script src="Contents/js/sweetalert2@11.js"></script>
+    <script src="Contents/js/Zxing.min.js"></script>
+    <script src="Contents/js/toastify-js.js"></script>
+    <script src="Contents/js/select2.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    <svg id="btnAdd" title="Add" data-bs-toggle="modal" data-bs-target="#exampleModal" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+    </svg>
+   @*  <script>
+        document.write('<script src="Scripts/Layout.js?'+new Date().getTime()+'"><//script>');
+    </script> *@
+    <script src="Scripts/Layout.js"></script>
+</body>
+</html>

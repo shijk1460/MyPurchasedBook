@@ -1,0 +1,7 @@
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\obj\Release\net9.0\win-x64\PubTmp\Out\log4net.config
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\obj\Release\net9.0\win-x64\PubTmp\Out\appsettings.Development.json
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\obj\Release\net9.0\win-x64\PubTmp\Out\appsettings.json
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\obj\Release\net9.0\win-x64\PubTmp\Out\MyPurchasedBook.pdb
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\obj\Release\net9.0\win-x64\PubTmp\Out\aspnetcorev2_inprocess.dll
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\obj\Release\net9.0\win-x64\PubTmp\Out\Microsoft.Data.SqlClient.SNI.dll
+D:\WorkStation\MyPurchasedBook\MyPurchasedBook\MyPurchasedBook\obj\Release\net9.0\win-x64\PubTmp\Out\MyPurchasedBook.exe
