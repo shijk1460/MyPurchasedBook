@@ -18,6 +18,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    builder.WebHost.UseUrls("http://*:80", "https://*.443");
+}
+
 //ADD
 app.UseDefaultFiles();
 app.UseStaticFiles();
