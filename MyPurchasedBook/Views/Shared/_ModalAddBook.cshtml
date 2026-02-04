@@ -17,24 +17,52 @@
     </div>
 </div> *@
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade overflow-auto" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h1 class="modal-title fs-5" id="AddBookLabel">Add Book</h1>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
+                <div class="mb-3">
+                    <span id="Title" class="col-form-label">Title</span>
+                    <textarea class="form-control textareaEdit" id="Title" maxlength="200" required></textarea>
+                </div>
+                <div class="input-group mb-3">
+                    <span id="ISBN" class="input-group-text">ISBN</span>
+                    <input type="text" id="ISBN" minlength="13" maxlength="13" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <span id="Author" class="col-form-label">Author</span>
+                    <select id="AuthorSelect2" multiple>
+                        <option value="AL">Alabama</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <span id="Publisher" class="col-form-label">Publisher</span>
+                    <textarea class="form-control textareaEdit" id="Publisher" maxlength="200" required></textarea>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Publish Date</span>
+                    <input type="date" id="PublishDate" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <span class="col-form-label">Categories</span>
+                    <select id="CategoriesSelect2" multiple>
+                        <option value="AL">Alabama</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <span class="col-form-label">Description</span>
+                    <textarea class="form-control textareaEdit" id="Description" maxlength="200" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <span class="col-form-label">Image</span>
+                    @* <textarea class="form-control textareaEdit" id="Image" maxlength="200" required></textarea> *@
+                    <input class="form-control" type="file" id="Image">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -43,3 +71,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+         $('#AuthorSelect2').select2({
+             dropdownParent: $('#exampleModal'),
+              tags: true
+         });
+
+          $('#CategoriesSelect2').select2({
+             dropdownParent: $('#exampleModal'),
+              tags: true
+         });
+    });
+</script>

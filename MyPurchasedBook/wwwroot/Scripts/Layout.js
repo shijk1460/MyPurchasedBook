@@ -13,7 +13,7 @@
 
                 const exampleModal = document.getElementById('exampleModal')
                 if (exampleModal) {
-                    exampleModal.addEventListener('show.bs.modal', event => {
+                    exampleModal.addEventListener('show.bs.modal',async (event) => {
                         // Button that triggered the modal
                         const button = event.relatedTarget
                         // Extract info from data-bs-* attributes
@@ -25,12 +25,42 @@
                         const modalTitle = exampleModal.querySelector('.modal-title')
                         const modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-                        modalTitle.textContent = `New message to ${recipient}`
-                        modalBodyInput.value = recipient
+                        //modalTitle.textContent = `New message to ${recipient}`
+                        //modalBodyInput.value = recipient
+
+                        //await thisClass.initSelect2()
                     })
                 }
             });
+
+            
         }
+
+        //async initSelect2() {
+        //    $('#mySelect2').select2({
+        //        tags: true,
+        //        createTag: function (params) {
+        //            if (params.term.indexOf('@@') === -1) {
+        //                return null;
+        //            }
+
+        //            return {
+        //                id: params.term,
+        //                text: params.term
+        //            }
+        //        },
+        //        insertTag: function (data, tag) {
+        //            // Insert the tag at the end of the results
+        //            data.push(tag);
+        //        },
+        //        placeholder: {
+        //            id: '-1', // the value of the option
+        //            text: 'Select an option'
+        //        }
+        //    });
+
+        //    //$('#mySelect2').select2()
+        //}
 
         CheckCamera() {
             const thisClass = this;

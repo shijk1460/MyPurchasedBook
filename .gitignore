@@ -1,3 +1,4 @@
 MyPurchasedBook/TestFile.txt
-MyPurchasedBook//bin/*
-MyPurchasedBook//obj/*
+MyPurchasedBook/bin/*
+MyPurchasedBook/obj/*
+.vs/
