@@ -16,44 +16,44 @@
 
 <style>
     /* #container-test {
-            position: relative;
-            width: 50%;
-        }
+                        position: relative;
+                        width: 50%;
+                    }
 
-        .image {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
+                    .image {
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                    }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            width: 100%;
-            opacity: 0;
-            transition: .5s ease;
-            background-color: #008CBA;
-        }
+                    .overlay {
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 100%;
+                        width: 100%;
+                        opacity: 0;
+                        transition: .5s ease;
+                        background-color: #008CBA;
+                    }
 
-        .card:hover .overlay {
-            opacity: 1;
-        }
+                    .card:hover .overlay {
+                        opacity: 1;
+                    }
 
-        .text {
-            color: white;
-            font-size: 20px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            text-align: center;
-        } */
+                    .text {
+                        color: white;
+                        font-size: 20px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        -webkit-transform: translate(-50%, -50%);
+                        -ms-transform: translate(-50%, -50%);
+                        transform: translate(-50%, -50%);
+                        text-align: center;
+                    } */
 
 
 
@@ -83,33 +83,33 @@
     }
 
     /*   * {
-            box-sizing: border-box;
-        }
+                        box-sizing: border-box;
+                    }
 
-        .responsive {
-            padding: 0 6px;
-            float: left;
-            width: 24.99999%;
-        }
+                    .responsive {
+                        padding: 0 6px;
+                        float: left;
+                        width: 24.99999%;
+                    }
 
-        @@media only screen and (max-width: 700px) {
-            .responsive
+                    @@media only screen and (max-width: 700px) {
+                        .responsive
 
-        {
-            width: 49.99999%;
-            margin: 6px 0;
-        }
+                    {
+                        width: 49.99999%;
+                        margin: 6px 0;
+                    }
 
-        }
+                    }
 
-        @@media only screen and (max-width: 500px) {
-            .responsive
+                    @@media only screen and (max-width: 500px) {
+                        .responsive
 
-        {
-            width: 100%;
-        }
+                    {
+                        width: 100%;
+                    }
 
-        } */
+                    } */
 
     .clearfix:after {
         content: "";
@@ -128,17 +128,32 @@
         max-height: 108px !important;
     }
 
-    span.select2-container{
-        width:100% !important;
+        .textareaEditNotLimit{
+            height: 40px;
+            min-height: 40px !important;
+            max-height: 252px !important;
+        }
+
+    /* .Select2Edit{
+                height: 40px;
+                min-height: 40px !important;
+            } */
+
+    span.select2-container {
+        width: 100% !important;
+        max-width: auto;
     }
+
+    .height40px, .select2-container, .select2-selection, .select2-selection__arrow {
+        height: 40px !important;
+    }
+
+    .select2-selection {
+        align-content: center;
+    }
+
+
 </style>
-<!-- Button trigger modal -->
-@* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-</button>
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="oo">Open modal for </button> *@
-
 <footer class="border-top footer text-muted d-none" id="ft_card">
     <div class="container">
         &copy; 2025 - My Purchased Book

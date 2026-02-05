@@ -1,72 +1,55 @@
 ﻿<!-- Modal -->
-@* <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-        </div>
-    </div>
-</div> *@
-
-<div class="modal fade overflow-auto" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="AddModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h1 class="modal-title fs-5" id="AddBookLabel">Add Book</h1>
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <span id="Title" class="col-form-label">Title</span>
-                    <textarea class="form-control textareaEdit" id="Title" maxlength="200" required></textarea>
+                    <span id="spanTitle" class="col-form-label">Title <span class="req">*</span></span>
+                    <textarea class="form-control textareaEdit addBook" id="Title" maxlength="200" required></textarea>
                 </div>
                 <div class="input-group mb-3">
-                    <span id="ISBN" class="input-group-text">ISBN</span>
-                    <input type="text" id="ISBN" minlength="13" maxlength="13" class="form-control">
+                    <span id="spanISBN" class="input-group-text">ISBN <span class="req">*</span></span>
+                    <input type="text" id="ISBN" pattern="[0-9]{13}" minlength="13" maxlength="13" class="form-control height40px addBook" required>
                 </div>
                 <div class="mb-3">
-                    <span id="Author" class="col-form-label">Author</span>
-                    <select id="AuthorSelect2" multiple>
-                        <option value="AL">Alabama</option>
-                        <option value="WY">Wyoming</option>
+                    <span id="spanAuthor" class="col-form-label">Author <span class="req">*</span></span>
+                    <select id="AuthorSelect2" multiple required class="addBook">
                     </select>
                 </div>
                 <div class="mb-3">
-                    <span id="Publisher" class="col-form-label">Publisher</span>
-                    <textarea class="form-control textareaEdit" id="Publisher" maxlength="200" required></textarea>
+                    <span id="spanPublisher" class="col-form-label">Publisher <span class="req">*</span></span>
+                    <select id="PublisherSelect2" required class="addBook">
+                    </select>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text">Publish Date</span>
-                    <input type="date" id="PublishDate" class="form-control">
+                    <span class="input-group-text" id="spanPublishDate">Publish Date <span class="req">*</span></span>
+                    <input type="date" id="PublishDate" class="form-control height40px addBook" required>
                 </div>
                 <div class="mb-3">
-                    <span class="col-form-label">Categories</span>
-                    <select id="CategoriesSelect2" multiple>
-                        <option value="AL">Alabama</option>
-                        <option value="WY">Wyoming</option>
+                    <span id="spanCategories" class="col-form-label">Categories</span>
+                    <select id="CategoriesSelect2" multiple class="addBook">
                     </select>
                 </div>
                 <div class="mb-3">
-                    <span class="col-form-label">Description</span>
-                    <textarea class="form-control textareaEdit" id="Description" maxlength="200" required></textarea>
+                    <span id="spanDescription" class="col-form-label">Description</span>
+                    <textarea class="form-control textareaEditNotLimit addBook" id="Description"></textarea>
                 </div>
                 <div class="mb-3">
-                    <span class="col-form-label">Image</span>
-                    @* <textarea class="form-control textareaEdit" id="Image" maxlength="200" required></textarea> *@
-                    <input class="form-control" type="file" id="Image">
+                    <span id="spanImage" class="col-form-label">Image</span>
+                    <input class="form-control height40px addBook" type="file" id="Image" accept=".jpg, .jpeg, .png">
+                </div>
+
+                <div class="mb-3 d-flex justify-content-center d-none" id="divImage">
+                    <img id='output' style="height:100px; width:100px;">
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" id="btnConfirm">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -74,14 +57,127 @@
 
 <script>
     $(document).ready(function() {
-         $('#AuthorSelect2').select2({
-             dropdownParent: $('#exampleModal'),
-              tags: true
-         });
+         var data = [
+        {
+            id: 0,
+            text: 'enhancement'
+        },
+        {
+            id: 1,
+            text: 'bug'
+        },
+        {
+            id: 2,
+            text: 'duplicate'
+        },
+        {
+            id: 3,
+            text: 'invalid'
+        },
+        {
+            id: 4,
+            text: 'wontfix'
+        }
+    ];
 
-          $('#CategoriesSelect2').select2({
-             dropdownParent: $('#exampleModal'),
-              tags: true
-         });
+         $('#AuthorSelect2').select2({
+             dropdownParent: $('#AddModal'),
+             tags: true,
+             allowClear: true,
+             placeholder: 'Select/Add Author(s)',
+             data: data
+         }).val(null).change();
+
+         $('#PublisherSelect2').select2({
+             dropdownParent: $('#AddModal'),
+             tags: true,
+             allowClear: true,
+             placeholder: 'Select/Add Publisher(s)..',
+             data: data
+         }).val(null).change();
+
+         $('#CategoriesSelect2').select2({
+             dropdownParent: $('#AddModal'),
+             tags: true,
+             allowClear: true,
+             placeholder: 'Select/Add Categories(s)..',
+             data: data
+         }).val(null).change();
+
+          let Image = document.getElementById("Image")
+         let divImage = document.getElementById("divImage")
+
+         let output = document.getElementById('output');
+
+        Image.addEventListener("cancel", () => {
+            console.log("Cancelled.");
+        });
+
+        Image.addEventListener("change", () => {
+            if (Image.files.length === 1) {
+                ImageLoad()
+                divImage.classList.remove('d-none')
+            }
+            else divImage.classList.add('d-none')
+        });
+
+        let isbn = document.getElementById("ISBN")
+
+        isbn.addEventListener("beforeinput", (e) => {
+            if(!(e.data >= 0 && e.data <= 9)) {
+                e.preventDefault();
+            }
+        });
+
+         function ImageLoad(){
+            var reader = new FileReader();
+            reader.onload = function(){
+                var dataURL = reader.result;
+                //var output = document.getElementById(id);
+                output.src = dataURL;
+            };
+            reader.readAsDataURL(Image.files[0]);
+         }
+
+        let elementsSelect = document.body.getElementsByTagName('select');
+
+        Array.prototype.forEach.call(elementsSelect, (e) => {
+            // console.log(e)
+            // console.log(e.value)
+
+            if(e.required){
+                //console.log(e[0].nextElementSibling)
+                e.nextElementSibling.children[0].children[0].classList.add('select2Required')
+                $(e).change((element)=>{
+                   if(element.target.value){
+                    element.target.nextElementSibling.children[0].children[0].classList.remove('select2Required')
+                   }
+                   else element.target.nextElementSibling.children[0].children[0].classList.add('select2Required')
+                })
+            }
+        });
+
+        let btnConfirm = document.getElementById('btnConfirm');
+
+        btnConfirm.addEventListener('click',()=>{
+              let requireElement = document.querySelectorAll('[required]');
+              let containsValue = Object.entries(requireElement).map((c) => c[1].value.length > 0);
+              console.log(containsValue.every(function(v){return v === true}))
+        })
+
+        $('#AddModal').on('hidden.bs.modal', function () {
+            let addBookClass = document.querySelectorAll('.addBook');
+
+            Array.prototype.forEach.call(addBookClass, (e) => {
+                if(e.type === 'file' && e.id === 'Image') {
+                    var event = new Event('change');
+                    Image.dispatchEvent(event);
+                }
+                else {
+                    e.value = '';
+                }
+                $(e).change()
+            })
+        })
     });
 </script>
