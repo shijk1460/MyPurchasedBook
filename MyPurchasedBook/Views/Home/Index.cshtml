@@ -1,164 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     ViewData["Title"] = "Movie List";
 }
 
 <input type="search" id="txtSearch" class="form-control my-2" placeholder="Search..." aria-label="Search">
 
 <div class="container p-0" id="custom-cards">
-    @* <h2 class="pb-2">Custom cards</h2> *@
 </div>
 
-
-
-
-<style>
-    /* #container-test {
-                        position: relative;
-                        width: 50%;
-                    }
-
-                    .image {
-                        display: block;
-                        width: 100%;
-                        height: auto;
-                    }
-
-                    .overlay {
-                        position: absolute;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        height: 100%;
-                        width: 100%;
-                        opacity: 0;
-                        transition: .5s ease;
-                        background-color: #008CBA;
-                    }
-
-                    .card:hover .overlay {
-                        opacity: 1;
-                    }
-
-                    .text {
-                        color: white;
-                        font-size: 20px;
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        -webkit-transform: translate(-50%, -50%);
-                        -ms-transform: translate(-50%, -50%);
-                        transform: translate(-50%, -50%);
-                        text-align: center;
-                    } */
-
-
-
-
-
-
-
-
-
-
-    div.gallery {
-        border: 1px solid #ccc;
-    }
-
-        div.gallery:hover {
-            border: 1px solid #777;
-        }
-
-        div.gallery img {
-            width: 100%;
-            height: auto;
-        }
-
-    div.desc {
-        padding: 15px;
-        text-align: center;
-    }
-
-    /*   * {
-                        box-sizing: border-box;
-                    }
-
-                    .responsive {
-                        padding: 0 6px;
-                        float: left;
-                        width: 24.99999%;
-                    }
-
-                    @@media only screen and (max-width: 700px) {
-                        .responsive
-
-                    {
-                        width: 49.99999%;
-                        margin: 6px 0;
-                    }
-
-                    }
-
-                    @@media only screen and (max-width: 500px) {
-                        .responsive
-
-                    {
-                        width: 100%;
-                    }
-
-                    } */
-
-    .clearfix:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    .modal-body {
-        max-height: calc(100vh - 200px);
-        overflow-y: auto;
-    }
-
-    .textareaEdit {
-        height: 40px;
-        min-height: 40px !important;
-        max-height: 108px !important;
-    }
-
-        .textareaEditNotLimit{
-            height: 40px;
-            min-height: 40px !important;
-            max-height: 252px !important;
-        }
-
-    /* .Select2Edit{
-                height: 40px;
-                min-height: 40px !important;
-            } */
-
-    span.select2-container {
-        width: 100% !important;
-        max-width: auto;
-    }
-
-    .height40px, .select2-container, .select2-selection, .select2-selection__arrow {
-        height: 40px !important;
-    }
-
-    .select2-selection {
-        align-content: center;
-    }
-
-
-</style>
 <footer class="border-top footer text-muted d-none" id="ft_card">
     <div class="container">
         &copy; 2025 - My Purchased Book
     </div>
 </footer>
 <script src="Contents/js/jquery-3.7.1.min.js"></script>
-<script src="Scripts/Home/Home.js"></script>
-<partial name="Views/Shared/_ModalAddBook.cshtml" />
+@* <script src="Scripts/Home/Home.js"></script>
+<script src="Scripts/Utils/Utils.js"></script> *@
+
+<script type="text/javascript">
+    (function(){
+         var date = new Date().getTime();
+         var e = document.getElementsByTagName("script")[0];
+         var d = document.createElement("script");
+         d.src = "Scripts/Home/Home.js?ver="+date+"";
+         d.type = "text/javascript";
+         d.async = true;
+         d.defer = true;
+         e.parentNode.append(d,e);
+     })();
+</script>
+
+<script type="text/javascript">
+    (function(){
+         var date = new Date().getTime();
+         var e = document.getElementsByTagName("script")[0];
+         var d = document.createElement("script");
+         d.src = "Scripts/Utils/Utils.js?ver="+date+"";
+         d.type = "text/javascript";
+         d.async = true;
+         d.defer = true;
+         e.parentNode.append(d,e);
+     })();
+</script>

@@ -8,59 +8,7 @@
     <link href="Contents/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="Contents/css/toastify.min.css" rel="stylesheet"/>
     <link href="Contents/css/select2.min.css" rel="stylesheet" />
-    <style>
-        input + span {
-            position: relative;
-        }
-
-        input:invalid, textarea:invalid {
-            border: 2px solid red;
-        }
-
-        #btnAdd {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99;
-            font-size: 18px;
-            border: none;
-            outline: none;
-            background-color: forestgreen;
-            color: white;
-            cursor: pointer;
-            border-radius: 90px;
-        }
-
-            #btnAdd:hover {
-                background-color: #555;
-            }
-
-        .swal-height {
-            height: max-content;
-            width: 600px;
-        }
-
-        @@media (max-width: 800px) {
-            .swal-height {
-                height: 300px;
-                width: 300px;
-            }
-        }
-
-        .swal2-close {
-            background-color: #555;
-            border-radius: 90px;
-        }
-
-        .req {
-            color: red;
-        }
-
-        .select2Required{
-            border: 2px solid red !important;
-        }
-    </style>
+    <link href="Contents/css/Layout.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -81,14 +29,27 @@
     <script src="Contents/js/sweetalert2@11.js"></script>
     <script src="Contents/js/Zxing.min.js"></script>
     <script src="Contents/js/toastify-js.js"></script>
-    <script src="Contents/js/select2.min.js"></script>
     @RenderSection("Scripts", required: false)
-    <svg id="btnAdd" title="Add" data-bs-toggle="modal" data-bs-target="#AddModal" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+    <svg id="btnAdd" title="Add" data-bs-target="#AddModal" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
     </svg>
    @*  <script>
         document.write('<script src="Scripts/Layout.js?'+new Date().getTime()+'"><//script>');
     </script> *@
-    <script src="Scripts/Layout.js"></script>
+    @* <script src="Scripts/Layout.js?ver<%=DateTime.Now.Ticks.ToString()%>"></script> *@
+
+    <script type="text/javascript">
+        (function(){
+             var date = new Date().getTime();
+             var e = document.getElementsByTagName("script")[0];
+             var d = document.createElement("script");
+             d.src = "Scripts/Layout.js?ver="+date+"";
+             d.type = "text/javascript";
+             d.async = true;
+             d.defer = true;
+             e.parentNode.append(d,e);
+         })();
+    </script>
+
 </body>
 </html>

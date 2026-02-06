@@ -1,9 +1,8 @@
 ﻿(function () {
     class Home {
         constructor() {
+            //this.btnAdd = document.getElementById('btnAdd')
             this.init()
-
-           
         }
 
         init() {
@@ -12,6 +11,60 @@
 
         async GetBooks() {
             const thisClass = this
+
+            //this.btnAdd.style.display = "block";
+            //this.btnAdd.addEventListener("click", (e) => {
+            //    e.preventDefault();
+            //    //thisClass.CheckCamera();
+
+            //    const AddModal = document.getElementById('AddModal')
+            //    console.log(AddModal)
+            //    if (AddModal) {
+            //        //exampleModal.addEventListener('show.bs.modal',async (event) => {
+            //        //    // Button that triggered the modal
+            //        //    const button = event.relatedTarget
+            //        //    // Extract info from data-bs-* attributes
+            //        //    const recipient = button.getAttribute('data-bs-whatever')
+            //        //    // If necessary, you could initiate an Ajax request here
+            //        //    // and then do the updating in a callback.
+
+            //        //    // Update the modal's content.
+            //        //    const modalTitle = exampleModal.querySelector('.modal-title')
+            //        //    const modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+            //        //    //modalTitle.textContent = `New message to ${recipient}`
+            //        //    //modalBodyInput.value = recipient
+
+            //        //    //await thisClass.initSelect2()
+            //        //})
+
+            //        const modal = new Modal(AddModal, {
+            //            backdrop: false,
+            //            keyboard: true,
+            //            focus: true
+            //        });
+            //        modal.show();
+            //    }
+            //});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             await $.ajax({
                 url: `${self.location.href}api/Book/GetBook`,
@@ -107,12 +160,10 @@
 
 
 
-
-
             //console.log(arr)
             arr.forEach((value, index) => {
-                console.log(index)
-                console.log(value)
+                //console.log(index)
+                //console.log(value)
 
                 const divCol = document.createElement("div");
                 divCol.className = "col";
