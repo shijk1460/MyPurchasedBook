@@ -1,4 +1,5 @@
 MyPurchasedBook/TestFile.txt
 MyPurchasedBook/bin/*
 MyPurchasedBook/obj/*
+MyPurchasedBook/Logs/*
 .vs/
