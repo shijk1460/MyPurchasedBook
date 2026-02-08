@@ -4,17 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Purchased Book</title>
-    <link rel="icon" type="image/x-icon" href="Contents/logo/letter-m.png">
-    <link href="Contents/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="Contents/css/toastify.min.css" rel="stylesheet"/>
-    <link href="Contents/css/select2.min.css" rel="stylesheet" />
-    <link href="Contents/css/Layout.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="../Contents/logo/letter-m.png">
+    <link href="../Contents/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../Contents/css/toastify.min.css" rel="stylesheet"/>
+    <link href="../Contents/css/select2.min.css" rel="stylesheet" />
+    <link href="../Contents/css/Layout.css" rel="stylesheet" />
 </head>
 <body>
     <header>
         <div class="px-3 py-2">
             <div class="d-flex align-items-center justify-content-center mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
-                <a href="/"><img class="bi me-2" width="52" height="52" aria-hidden="true" src="Contents/logo/letter-m.png" /></a>
+                <a href="/"><img class="bi me-2" width="52" height="52" aria-hidden="true" src="../Contents/logo/letter-m.png" /></a>
             </div>
         </div>
     </header>
@@ -23,13 +23,14 @@
             @RenderBody()
         </main>
     </div>
-    @Html.Partial("~/Views/Shared/_ModalAddBook.cshtml")
-    <script src="Contents/js/bootstrap.bundle.min.js"></script>
-    <script src="Contents/js/jquery-3.7.1.min.js"></script>
-    <script src="Contents/js/sweetalert2@11.js"></script>
-    <script src="Contents/js/Zxing.min.js"></script>
-    <script src="Contents/js/toastify-js.js"></script>
+    
+    <script src="../Contents/js/bootstrap.bundle.min.js"></script>
+    <script src="../Contents/js/jquery-3.7.1.min.js"></script>
+    <script src="../Contents/js/sweetalert2@11.js"></script>
+    <script src="../Contents/js/Zxing.min.js"></script>
+    <script src="../Contents/js/toastify-js.js"></script>
     @RenderSection("Scripts", required: false)
+    @Html.Partial("~/Views/Shared/_ModalAddBook.cshtml")
     <svg id="btnAdd" title="Add" data-bs-target="#AddModal" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
     </svg>
@@ -43,7 +44,7 @@
              var date = new Date().getTime();
              var e = document.getElementsByTagName("script")[0];
              var d = document.createElement("script");
-             d.src = "Scripts/Layout.js?ver="+date+"";
+             d.src = "../Scripts/Layout.js?ver="+date+"";
              d.type = "text/javascript";
              d.async = true;
              d.defer = true;

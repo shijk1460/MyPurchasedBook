@@ -1,4 +1,4 @@
-@MyPurchasedBook_HostAddress = http://localhost:5190
+@MyPurchasedBook_HostAddress = https://localhost:7287
 
 GET {{MyPurchasedBook_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -7,3 +7,14 @@ Accept: application/json
 
 GET {{MyPurchasedBook_HostAddress}}/api/Book/GetBook
 Accept: application/json
+
+###
+
+POST {{MyPurchasedBook_HostAddress}}/api/book
+Content-Type: application/json
+
+{
+  //Book
+}
+
+###

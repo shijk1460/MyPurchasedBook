@@ -12,16 +12,13 @@
         &copy; 2025 - My Purchased Book
     </div>
 </footer>
-<script src="Contents/js/jquery-3.7.1.min.js"></script>
-@* <script src="Scripts/Home/Home.js"></script>
-<script src="Scripts/Utils/Utils.js"></script> *@
-
+<script src="../Contents/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
     (function(){
          var date = new Date().getTime();
          var e = document.getElementsByTagName("script")[0];
          var d = document.createElement("script");
-         d.src = "Scripts/Home/Home.js?ver="+date+"";
+         d.src = "../Scripts/Home/Home.js?ver="+date+"";
          d.type = "text/javascript";
          d.async = true;
          d.defer = true;
@@ -34,7 +31,7 @@
          var date = new Date().getTime();
          var e = document.getElementsByTagName("script")[0];
          var d = document.createElement("script");
-         d.src = "Scripts/Utils/Utils.js?ver="+date+"";
+         d.src = "../Scripts/Utils/Utils.js?ver="+date+"";
          d.type = "text/javascript";
          d.async = true;
          d.defer = true;

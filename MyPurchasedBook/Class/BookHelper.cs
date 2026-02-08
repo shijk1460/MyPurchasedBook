@@ -1,5 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using MyPurchasedBook.Models;
+using System.Data;
+using System.IO;
 
 namespace MyPurchasedBook.Class
 {
@@ -23,14 +25,14 @@ namespace MyPurchasedBook.Class
             Book book = new Book();
             try
             {
-                // 2. Open the connection
+                // Open the connection
                 conn.Open();
 
-                // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("Select [Title],[ISBN],[Author],[Publisher],[Publish Date],[Categories],[Description] from Books");
+                // Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand("Select [Title],[ISBN],[Author],[Publisher],[Publish Date],[Categories],[Description],[Image] from Books");
                 cmd.Connection = conn;
 
-                // 4. Use the connection
+                // Use the connection
 
                 // get query results
                 rdr = cmd.ExecuteReader();
@@ -38,6 +40,8 @@ namespace MyPurchasedBook.Class
                 // loop each record
                 while (rdr.Read())
                 {
+                    //string name = rdr.GetByte(8).ToString();
+
                     book = new Book
                     {
                         Title = Convert.ToString(rdr["Title"]),
@@ -47,13 +51,15 @@ namespace MyPurchasedBook.Class
                         PublishDate = Convert.ToString(rdr["Publish Date"]),
                         Categories = Convert.ToString(rdr["Categories"]),
                         Description = Convert.ToString(rdr["Description"]),
+                        Image = (rdr["Image"] == DBNull.Value) ? null : (byte[])rdr["Image"]
                     };
+
                     bookList.Add(book);
                 }
             }
             catch (Exception ex)
             {
-                Utils.WriteLogs($"Utils.ReadFile (Err) : {ex.Message}");
+                Utils.WriteLogs($"Utils.GetBook (Err) : {ex.Message}");
             }
             finally
             {
@@ -63,7 +69,7 @@ namespace MyPurchasedBook.Class
                     rdr.Close();
                 }
 
-                // 5. Close the connection
+                // Close the connection
                 if (conn != null)
                 {
                     conn.Close();
@@ -74,68 +80,37 @@ namespace MyPurchasedBook.Class
         }
         #endregion
 
-        public string AddBook(Book book) {
-
-            /*
-             
-             INSERT INTO table_name (column1, column2, column3, ...)VALUES (value1, value2, value3, ...);
-             
-             [dbo].[Books]
-            
-            SELECT TOP (200) ID, Title, ISBN, Author, Publisher, [Publish Date], TimeStamp, Categories, Description
-            FROM   Books
-
-
-             */
-
+        public string AddBook(Book book) 
+        {
             try
             {
-                // 2. Open the connection
+                // Open the connection
                 conn.Open();
 
                 // 3. Pass the connection to a command object
-                //SqlCommand cmd = new SqlCommand("select * from Customers", conn);
-                SqlCommand cmd = new SqlCommand($"INSERT INTO Books ([Title],[ISBN],[Author],[Publisher],[Publish Date],[TimeStamp],[Categories],[Description]) OUTPUT INSERTED.ID VALUES('{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', GETDATE(), '{book.Categories}', '{book.Description}');");
+                //var filePath = @$"{book.Image}";
+                //byte[] photo = Utils.GetPhoto(new FileInfo(filePath).Directory.FullName);
+                //byte[] photo = Utils.GetPhoto($"{book.Image.Replace("\\","\\\\")}");
+
+                SqlCommand cmd = new SqlCommand($"INSERT INTO Books ([Title],[ISBN],[Author],[Publisher],[Publish Date],[TimeStamp],[Categories],[Description],[Image]) OUTPUT INSERTED.ISBN VALUES('{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', GETDATE(), '{book.Categories}', '{book.Description}', @Image);");
+
+                cmd.Parameters.Add("@Image", SqlDbType.VarBinary, book.Image.Length).Value = book.Image;
+
                 cmd.Connection = conn;
 
-                //
-                // 4. Use the connection
-                //
-
-                // using (SqlDataReader reader = cmd.ExecuteReader())
-                //            {
-                //                if (reader.Read())
-                //                {
-                //                    book = new Book
-                //                    {
-                //                        Title = Convert.ToString(reader["Title"]),
-                //                    };
-                //                    bookList.Add(book);
-                //                }
-                //            }
+                // Use the connection
 
                 // get query results
                 rdr = cmd.ExecuteReader();
 
-                // print the CustomerID of each record
-                while (rdr.Read())
+                if (rdr.Read())
                 {
-                    //TimeStamp
-                    return Convert.ToString(rdr[0]).ToString();
+                    return rdr[0].ToString();
                 }
-
-                //if (rdr.Read())
-                //{
-                //    book = new Book
-                //    {
-                //        Title = Convert.ToString(rdr["Title"]),
-                //    };
-                //    bookList.Add(book);
-                //}
             }
             catch (Exception ex)
             {
-                Utils.WriteLogs($"Utils.ReadFile (Err) : {ex.Message}");
+                Utils.WriteLogs($"Utils.AddBook (Err) : {ex.Message}");
             }
             finally
             {
@@ -145,7 +120,7 @@ namespace MyPurchasedBook.Class
                     rdr.Close();
                 }
 
-                // 5. Close the connection
+                // Close the connection
                 if (conn != null)
                 {
                     conn.Close();

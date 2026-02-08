@@ -62,10 +62,6 @@
 
 
 
-
-
-
-
             await $.ajax({
                 url: `${self.location.href}api/Book/GetBook`,
                 type: "GET",
@@ -163,7 +159,7 @@
             //console.log(arr)
             arr.forEach((value, index) => {
                 //console.log(index)
-                //console.log(value)
+                console.log(value)
 
                 const divCol = document.createElement("div");
                 divCol.className = "col";
@@ -174,7 +170,8 @@
 
                 const img = document.createElement("img");
                 img.height = 400;
-                img.src = 'Contents/img/unsplash-photo-2.jpg';
+                //img.src = 'Contents/img/unsplash-photo-2.jpg';
+                img.src = `data:image/jpg;base64, ${value.Image}`;
                 img.onclick = () => {
                     console.log(value.title)
                 };

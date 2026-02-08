@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //Add
@@ -6,7 +8,11 @@ builder.Services.AddRazorPages();
 builder.Logging.AddLog4Net();
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+     .AddNewtonsoftJson(options =>
+     {
+         options.SerializerSettings.Formatting = Formatting.Indented;
+     });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -36,5 +42,9 @@ app.MapControllers();
 //Add
 app.MapRazorPages();
 app.MapFallbackToController("Index", "Home");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();
