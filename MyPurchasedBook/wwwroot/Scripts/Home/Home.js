@@ -1,12 +1,27 @@
 ﻿(function () {
     class Home {
         constructor() {
-            //this.btnAdd = document.getElementById('btnAdd')
+            this.addBookClass = document.querySelectorAll('.addBook');
+            this.addModal = document.getElementById('AddModal');
+            this.Image = document.getElementById("Image")
             this.init()
         }
 
         init() {
+            const thisClass = this
             this.GetBooks()
+            this.addModal.addEventListener('hidden.bs.modal', () => {
+                Array.prototype.forEach.call(thisClass.addBookClass, (e) => {
+                    e.value = '';
+                    if (e.type === 'file' && e.id === 'Image') {
+                        var event = new Event('change');
+                        thisClass.Image.dispatchEvent(event);
+                    }
+                    $(e).trigger('change')
+                })
+                thisClass.GetBooks()
+            })
+
         }
 
         async GetBooks() {
@@ -67,6 +82,7 @@
                 type: "GET",
                 success: function (data) {
                     if (data.length > 0) {
+                        document.getElementById('custom-cards').replaceChildren();
                         //console.log(Object.entries(data))
 
                         const perRow = 3
@@ -159,7 +175,7 @@
             //console.log(arr)
             arr.forEach((value, index) => {
                 //console.log(index)
-                console.log(value)
+                //console.log(value)
 
                 const divCol = document.createElement("div");
                 divCol.className = "col";
@@ -171,7 +187,7 @@
                 const img = document.createElement("img");
                 img.height = 400;
                 //img.src = 'Contents/img/unsplash-photo-2.jpg';
-                img.src = `data:image/jpg;base64, ${value.Image}`;
+                img.src = `data:${value.ImageType};base64, ${value.Image}`;
                 img.onclick = () => {
                     console.log(value.title)
                 };
@@ -225,7 +241,7 @@
 
 
 
-               
+
                 liTitle.appendChild(span);
                 ul.appendChild(liTitle);
 
@@ -237,7 +253,6 @@
                 divCol.appendChild(divCard);
                 div.appendChild(divCol);
             })
-
             document.getElementById('custom-cards').appendChild(div);
         }
     }

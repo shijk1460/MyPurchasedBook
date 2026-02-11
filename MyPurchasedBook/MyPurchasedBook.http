@@ -14,7 +14,21 @@ POST {{MyPurchasedBook_HostAddress}}/api/book
 Content-Type: application/json
 
 {
-  //Book
+  "Title":"",
+  "ISBN":"",
+  "Author":"",
+  "Publisher":"",
+  "PublishDate":"",
+  "Categories":"",
+  "Description":"",
+  "Image":"",
+  "ImageType":""
 }
+
+
+###
+
+@TitleName=string
+GET {{MyPurchasedBook_HostAddress}}/api/book/CheckTitleBook?TitleName={{TitleName}}
 
 ###

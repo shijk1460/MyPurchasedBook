@@ -1,6 +1,7 @@
 ﻿(function () {
     class Home {
         constructor() {
+            this.Title = document.getElementById("Title")
             this.Image = document.getElementById("Image")
             this.divImage = document.getElementById("divImage")
             this.output = document.getElementById('output');
@@ -8,7 +9,6 @@
             this.elementsSelect = document.body.getElementsByTagName('select');
             this.btnConfirm = document.getElementById('btnConfirm');
             this.addBookClass = document.querySelectorAll('.addBook');
-            this.addModal = document.getElementById('AddModal');
 
             this.init()
         }
@@ -16,6 +16,27 @@
         init() {
             const thisClass = this;
             this.DropdownSelect2();
+
+            this.Title.addEventListener("blur", async (e) => {
+                if (e.target.value) {
+                    console.log(JSON.stringify({
+                        "TitleName": `${e.target.value}`,
+                    }),)
+                    await $.ajax({
+                        type: 'GET',
+                        url: `${self.location.href}api/Book/CheckTitleBook`,
+                        data: { "TitleName": `${e.target.value}`,},
+                        error: function (e) {
+                            console.log(e);
+                        },
+                        dataType: "json",
+                        contentType: "application/json",
+                    }).done((res) => {
+                        if (res) e.target.value = '';
+                        else return
+                    });
+                }
+            })
 
             this.Image.addEventListener("change", () => {
                 if (thisClass.Image.files.length === 1) {
@@ -29,6 +50,25 @@
                 if (!(e.data >= 0 && e.data <= 9)) {
                     e.preventDefault();
                 }
+            });
+
+            this.isbn.addEventListener("blur", (e) => {
+                if (e.target.value.length == 10 || e.target.value.length == 13) {
+                    e.preventDefault();
+                    if (e.target.value.length == 10) {
+                        let checkISBN10digit = thisClass.CheckISBN10(e.target.value)
+                        let checkISBN10digit2 = thisClass.CheckISBN10Logic(e.target.value)
+                        if (checkISBN10digit == checkISBN10digit2) {
+                            if (checkISBN10digit != e.target.value.charAt(e.target.value.length - 1)) thisClass.SetInvalidISBN(e.target)
+                        }
+                        else thisClass.SetInvalidISBN(e.target)
+                    }
+                    else {
+                        let checkISBN13digit = thisClass.CheckISBN13(e.target.value)
+                        console.log(checkISBN13digit)
+                    }
+                }
+                else thisClass.SetInvalidISBN(e.target)
             });
 
             Array.prototype.forEach.call(this.elementsSelect, (e) => {
@@ -50,17 +90,6 @@
                 let checkRequired = containsValue.every(function (v) { return v === true })
                 if (checkRequired) await thisClass.prepareData()
                 else ToastMessage(`Please fill required field(s)`)
-            })
-
-            this.addModal.addEventListener('hidden.bs.modal', () => {
-                Array.prototype.forEach.call(thisClass.addBookClass, (e) => {
-                    e.value = '';
-                    if (e.type === 'file' && e.id === 'Image') {
-                        var event = new Event('change');
-                        thisClass.Image.dispatchEvent(event);
-                    }
-                    $(e).trigger('change')
-                })
             })
         }
 
@@ -125,176 +154,17 @@
 
         async prepareData() {
             const thisClass = this
-            //let book = [];
-            //Array.prototype.forEach.call(this.addBookClass, (e) => {
-            //    if (e.id == 'Image') book[`${e.id}`] =  e.value//thisClass.output.src
-            //    else book[`${e.id.replace('Select2', '')}`] = $(e).val()
-            //})
-
-            //console.log(book)
-
-            //console.log(self.origin)
-
-            // url: `${self.location.href}Book/GetBook`,
-            //console.log(JSON.stringify(book))
-            //console.log(`${self.origin}/Book/AddBook`)
-            //$.ajax({
-            //    type: "POST",
-            //    url: `${self.location.href}Book/AddBook/`,
-            //    data: book,
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //});
-
-            //const response = await fetch(`${self.origin}/Book/AddBook`, {
-            //    method: "POST",
-            //    headers: {
-            //        "Content-Type": "application/json",
-            //    },
-            //    body: JSON.stringify(book),
-            //});
-
-            //const myHeaders = new Headers();
-            //myHeaders.append("Content-Type", "application/json");
-
-            //const myRequest = new Request(`${self.origin}/Book/AddBook`, {
-            //    method: "POST",
-            //    body: JSON.stringify(book),
-            //    headers: myHeaders,
-            //});
-
-            //const response = await fetch(myRequest);
-            //console.log(response)
-
-            //console.log(`${self.location.href}Book/GetBook`)
-            //console.log(JSON.stringify(book))
-
-            //const request1 = new Request(`${self.location.href}Book/AddBook`, {
-            //    method: "POST",
-            //    headers: {
-            //        "Content-Type": "application/json",
-            //    },
-            //    body: JSON.stringify(book),
-            //});
-
-            //this.post(request1)
-
-
-
-            //var jqxhr = $.post(`${self.location.href}Book/AddBook`, function () {
-            //    alert("success");
-            //})
-            //    .done(function () {
-            //        alert("second success");
-            //    })
-            //    .fail(function () {
-            //        alert("error");
-            //    })
-            //    .always(function () {
-            //        alert("finished");
-            //    });
-
-            //// Perform other work here ...
-
-            //// Set another completion function for the request above
-            //jqxhr.always(function () {
-            //    alert("second finished");
-            //});
-
-            //let url = self.origin + `/Book/AddBook`
-            //$.ajax({
-            //    type: "POST",
-            //    url: url,
-            //    data: book,
-            //    dataType: "json",
-            //    crossDomain: true,
-            //    contentType: "application/json; charset=utf-8",
-            //    success: function (data) {
-            //        alert(data); // show response from the php script.
-            //    }
-            //});
-
-            //const uri = 'api/Book/AddBook';
-
-            //fetch(uri, {
-            //    method: 'POST',
-            //    headers: {
-            //        'Accept': 'application/json',
-            //        'Content-Type': 'application/json',
-            //        'Connection': 'keep-alive'
-            //    },
-            //    body: JSON.stringify(book)
-            //})
-            //    .then(response => response.json())
-            //    .then(() => {
-            //        console.log('work')
-            //        //getItems();
-            //        //addNameTextbox.value = '';
-            //    })
-            //    .catch(error => console.error('Unable to add book.', error));
-
-            // console.log(JSON.stringify(book))
-
-            //$.ajax({
-            //    url: `${self.location.href}api/Book`,
-            //    method: "POST",
-            //    data: JSON.stringify(book),
-            //    //dataType: "json",
-            //    contentType: "application/json; charset=utf-8",
-            //   // 'Access-Control-Allow-Origin':'*',
-            //    success: function (data) {
-            //       console.log(data)
-            //    }
-            //});
-
-            //console.log(JSON.stringify({
-            //    "subject:title": "Test Name",
-            //    "subject:description": "Creating test subject to check POST method API",
-            //    "sub:tags": ["facebook:work", "facebook:likes"],
-            //    "sampleSize": 10,
-            //    "values": ["science", "machine-learning"]
-            //}))
-
-
-
-
-            //console.log(JSON.stringify(book))
-            // console.log(book)
-            //let sadsadasd = JSON.stringify(book)
-
-
-            //console.log(JSON.parse(sadsadasd))
-            //const uri = 'api/book';
-
-            //fetch(uri, {
-            //    method: 'POST',
-            //    headers: {
-            //        'Accept': 'application/json',
-            //        'Content-Type': 'application/json'
-            //    },
-            //    body: book//JSON.stringify(book)
-            //})
-            //    .then(response => response.json())
-            //    .then(() => {
-            //       console.log('Hit')
-            //    })
-            //    .catch(error => console.error('Unable to add item.', error));
-
-            //fetch(uri)
-            //    .then(response => response.json())
-            //    .then(data => console.log(data))
-            //    .catch(error => console.error('Unable to get items.', error));
-
             let book = new Object;
+            let imageType = ""
             Array.prototype.forEach.call(this.addBookClass, (e) => {
-                if (e.id == 'Image') book[`${e.id}`] = thisClass.output.src
+                if (e.id == 'Image') {
+                    book[`${e.id}`] = thisClass.output.src
+                    imageType = e.files[0].type
+                }
                 else book[`${e.id.replace('Select2', '')}`] = $(e).val()
             })
 
-            let renameImage = book.Image.replace("data:image/jpeg;base64,", "").replace("data:image/png;base64,", "")
-
-            console.log(renameImage)
-
+            let renameImage = book.Image.replace(`data:${imageType};base64,`, "")
             await $.ajax({
                 type: 'POST',
                 url: `${self.location.href}api/Book`,
@@ -307,6 +177,7 @@
                     "Categories": `${book.Categories}`,
                     "Description": `${book.Description}`,
                     "Image": `${renameImage}`,
+                    "ImageType": `${imageType}`,
                 }),
                 error: function (e) {
                     console.log(e);
@@ -314,59 +185,43 @@
                 dataType: "json",
                 contentType: "application/json"
             });
+
+            $('#AddModal').modal('toggle');
         }
 
-        readBase64(file) {
-            console.log(file)
-            //document.getElementById('imageInput').addEventListener('change', function (event) {
-            //    const file = event.target.files[0];
-            //    if (!file) {
-            //        alert("No file selected.");
-            //        return;
-            //    }
+        CheckISBN10(digits) {
+            let i, s = 0, t = 0;
 
-            //    // Validate file type
-            //    if (!file.type.startsWith("image/")) {
-            //        alert("Please select an image file.");
-            //        return;
-            //    }
-
-            //    const reader = new FileReader();
-            //    reader.onload = function (e) {
-            //        const base64String = e.target.result; // Data URL with Base64
-            //        document.getElementById('output').textContent = base64String;
-            //        console.log("Base64 String:", base64String);
-            //    };
-            //    reader.onerror = function () {
-            //        alert("Error reading file.");
-            //    };
-
-            //    reader.readAsDataURL(file); // Converts to Base64
-            //});
-
-            //const reader = new FileReader();
-            //reader.onload = function (e) {
-            //    const base64String = e.target.result; // Data URL with Base64
-            //    document.getElementById('output').textContent = base64String;
-            //    console.log("Base64 String:", base64String);
-            //};
-            //reader.onerror = function () {
-            //    alert("Error reading file.");
-            //};
-
-            //reader.readAsDataURL(file); // Converts to Base64
-
-            var reader = new FileReader();
-            reader.onload = function () {
-
-                var arrayBuffer = this.result,
-                    array = new Uint8Array(arrayBuffer),
-                    binaryString = String.fromCharCode.apply(null, array);
-
-                console.log(binaryString);
-
+            for (i = 0; i < 10; ++i) {
+                t += digits[i];
+                s += t;
             }
-            reader.readAsArrayBuffer(this.files[0]);
+            return s % 11;
+        }
+
+        CheckISBN10Logic(digits) {
+            let i, s = 0, t = 10;
+
+            for (i = 0; i < 9; i++) {
+                s += digits[i] * t;
+                t = t - 1;
+            }
+            return (11 - (s % 11)) % 11;
+        }
+
+        CheckISBN13(digits) {
+            let i, s = 0, t = 0;
+
+            for (i = 0; i < 13; ++i) {
+                t += digits[i];
+                s += t;
+            }
+            return s % 10;
+        }
+
+        SetInvalidISBN(input) {
+            input.value = ''
+            ToastMessage(`Your ISBN not valid`)
         }
     }
     new Home();

@@ -22,5 +22,7 @@ namespace MyPurchasedBook.Models
         public DateTime? TimeStamp { get; set; }
         [JsonProperty("Image")]
         public byte[]? Image { get; set; }
+        [JsonProperty("ImageType")]
+        public string? ImageType { get; set; }
     }
 }

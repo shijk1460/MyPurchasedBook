@@ -8,6 +8,7 @@ namespace MyPurchasedBook.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
+        #region GetBook
         [HttpGet]
         [Route("GetBook")]
         public List<Book> GetBook()
@@ -16,24 +17,43 @@ namespace MyPurchasedBook.Controllers
             List<Book> bookList = bookHelper.GetBook();
             return bookList;
         }
+        #endregion
 
-        //[HttpPost("AddBook")]
-        //public IActionResult AddBook(Book book)
-        //{
-        //    BookHelper bookHelper = new BookHelper();
-        //    List<Book> bookList = bookHelper.GetBook();
-        //    return Ok(bookList);
-        //}
-
+        #region AddBook
         [HttpPost]
-        //[Route("AddBook")]
-        public IActionResult Create(Book book)//[FromBody]Book book
+        public IActionResult Create(Book book)
         {
             BookHelper bookHelper = new BookHelper();
-            string bookList =  bookHelper.AddBook(book);
+            string bookList = bookHelper.AddBook(book);
             //return Ok(bookList);
             return CreatedAtAction(null, new { id = bookList }, book);
         }
+        #endregion
+
+        #region Check Exist Title Book
+        [HttpGet]
+        [Route("CheckTitleBook")]
+        public bool CheckTitleBook(string TitleName)
+        {
+            BookHelper bookHelper = new BookHelper();
+            bool existBook = bookHelper.CheckTitleBook(TitleName);
+            return existBook;
+        }
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //#region MyRegion
 

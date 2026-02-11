@@ -40,8 +40,6 @@ namespace MyPurchasedBook.Class
                 // loop each record
                 while (rdr.Read())
                 {
-                    //string name = rdr.GetByte(8).ToString();
-
                     book = new Book
                     {
                         Title = Convert.ToString(rdr["Title"]),
@@ -59,7 +57,7 @@ namespace MyPurchasedBook.Class
             }
             catch (Exception ex)
             {
-                Utils.WriteLogs($"Utils.GetBook (Err) : {ex.Message}");
+                Utils.WriteLogs($"BookHelper.GetBook (Err) : {ex.Message}");
             }
             finally
             {
@@ -80,7 +78,8 @@ namespace MyPurchasedBook.Class
         }
         #endregion
 
-        public string AddBook(Book book) 
+        #region AddBook
+        public string AddBook(Book book)
         {
             try
             {
@@ -88,11 +87,7 @@ namespace MyPurchasedBook.Class
                 conn.Open();
 
                 // 3. Pass the connection to a command object
-                //var filePath = @$"{book.Image}";
-                //byte[] photo = Utils.GetPhoto(new FileInfo(filePath).Directory.FullName);
-                //byte[] photo = Utils.GetPhoto($"{book.Image.Replace("\\","\\\\")}");
-
-                SqlCommand cmd = new SqlCommand($"INSERT INTO Books ([Title],[ISBN],[Author],[Publisher],[Publish Date],[TimeStamp],[Categories],[Description],[Image]) OUTPUT INSERTED.ISBN VALUES('{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', GETDATE(), '{book.Categories}', '{book.Description}', @Image);");
+                SqlCommand cmd = new SqlCommand($"INSERT INTO Books ([Title],[ISBN],[Author],[Publisher],[Publish Date],[TimeStamp],[Categories],[Description],[Image],[ImageType]) OUTPUT INSERTED.ISBN VALUES('{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', GETDATE(), '{book.Categories}', '{book.Description}', @Image, '{book.ImageType}');");
 
                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary, book.Image.Length).Value = book.Image;
 
@@ -110,7 +105,7 @@ namespace MyPurchasedBook.Class
             }
             catch (Exception ex)
             {
-                Utils.WriteLogs($"Utils.AddBook (Err) : {ex.Message}");
+                Utils.WriteLogs($"BookHelper.AddBook (Err) : {ex.Message}");
             }
             finally
             {
@@ -129,5 +124,52 @@ namespace MyPurchasedBook.Class
 
             return "";
         }
+        #endregion
+
+        #region CheckTitleBook
+        public bool CheckTitleBook(string TitleName)
+        {
+            bool existBook = false;
+            try
+            {
+                // Open the connection
+                conn.Open();
+
+                // Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand($"Select Count([Title]) from Books Where [Title] COLLATE SQL_Latin1_General_CP1_CS_AS = '{TitleName}' Group By [Title]");
+                cmd.Connection = conn;
+
+                // Use the connection
+                // get query results
+                rdr = cmd.ExecuteReader();
+
+                // loop each record
+                while (rdr.Read())
+                {
+                    return Convert.ToUInt32(rdr[0].ToString()) > 0 ? true : false ;
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.WriteLogs($"BookHelper.CheckTitleBook (Err) : {ex.Message}");
+            }
+            finally
+            {
+                // close the reader
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+
+                // Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return existBook;
+        }
+        #endregion
     }
 }
