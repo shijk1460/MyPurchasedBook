@@ -19,13 +19,10 @@
 
             this.Title.addEventListener("blur", async (e) => {
                 if (e.target.value) {
-                    console.log(JSON.stringify({
-                        "TitleName": `${e.target.value}`,
-                    }),)
                     await $.ajax({
                         type: 'GET',
                         url: `${self.location.href}api/Book/CheckTitleBook`,
-                        data: { "TitleName": `${e.target.value}`,},
+                        data: { "TitleName": `${e.target.value}`, },
                         error: function (e) {
                             console.log(e);
                         },
@@ -57,15 +54,11 @@
                     e.preventDefault();
                     if (e.target.value.length == 10) {
                         let checkISBN10digit = thisClass.CheckISBN10(e.target.value)
-                        let checkISBN10digit2 = thisClass.CheckISBN10Logic(e.target.value)
-                        if (checkISBN10digit == checkISBN10digit2) {
-                            if (checkISBN10digit != e.target.value.charAt(e.target.value.length - 1)) thisClass.SetInvalidISBN(e.target)
-                        }
-                        else thisClass.SetInvalidISBN(e.target)
+                        if (checkISBN10digit != e.target.value.charAt(e.target.value.length - 1)) thisClass.SetInvalidISBN(e.target)
                     }
                     else {
                         let checkISBN13digit = thisClass.CheckISBN13(e.target.value)
-                        console.log(checkISBN13digit)
+                        if (checkISBN13digit != e.target.value.charAt(e.target.value.length - 1)) thisClass.SetInvalidISBN(e.target)
                     }
                 }
                 else thisClass.SetInvalidISBN(e.target)
@@ -73,7 +66,10 @@
 
             Array.prototype.forEach.call(this.elementsSelect, (e) => {
                 if (e.required) {
-                    e.nextElementSibling.children[0].children[0].classList.add('select2Required')
+                    if (e.nextElementSibling) {
+                        e.nextElementSibling.children[0].children[0].classList.add('select2Required')
+                    }
+                    
                     $(e).on('change', (element) => {
                         element.preventDefault();
                         if (element.target.value) {
@@ -117,13 +113,7 @@
                 }
             ];
 
-            $('#AuthorSelect2').select2({
-                dropdownParent: $('#AddModal'),
-                tags: true,
-                allowClear: true,
-                placeholder: 'Select/Add Author(s)',
-                data: data
-            }).val(null).trigger('change');
+            this.GetAuthorList()
 
             $('#PublisherSelect2').select2({
                 dropdownParent: $('#AddModal'),
@@ -137,9 +127,33 @@
                 dropdownParent: $('#AddModal'),
                 tags: true,
                 allowClear: true,
-                placeholder: 'Select/Add Categories(s)..',
+                placeholder: 'Select/Add Categories..',
                 data: data
             }).val(null).trigger('change');
+        }
+
+        async GetAuthorList() {
+            const thisClass = this
+            await $.ajax({
+                type: 'GET',
+                url: `${self.location.href}api/Author/GetAuthorList`,
+                error: function (e) {
+                    console.log(e);
+                },
+                dataType: "json",
+                contentType: "application/json",
+            }).done((res) => {
+                console.log(res)
+                let data = thisClass.SetDataSelect2(res)
+
+                $('#AuthorSelect2').select2({
+                    dropdownParent: $('#AddModal'),
+                    tags: true,
+                    allowClear: true,
+                    placeholder: 'Select/Add Author(s)',
+                    data: data,
+                }).val(null).trigger('change');
+            });
         }
 
         ImageLoad() {
@@ -190,16 +204,6 @@
         }
 
         CheckISBN10(digits) {
-            let i, s = 0, t = 0;
-
-            for (i = 0; i < 10; ++i) {
-                t += digits[i];
-                s += t;
-            }
-            return s % 11;
-        }
-
-        CheckISBN10Logic(digits) {
             let i, s = 0, t = 10;
 
             for (i = 0; i < 9; i++) {
@@ -210,18 +214,31 @@
         }
 
         CheckISBN13(digits) {
-            let i, s = 0, t = 0;
-
-            for (i = 0; i < 13; ++i) {
-                t += digits[i];
+            let i, s = 0,t = 0, odd = 1, even = 3;
+            for (i = 0; i < 12; ++i) {
+                if (i % 2 == 0) t = digits[i] * odd;
+                else t = digits[i] * even;
                 s += t;
             }
-            return s % 10;
+            
+            return 10 - (s % 10);
         }
 
         SetInvalidISBN(input) {
             input.value = ''
             ToastMessage(`Your ISBN not valid`)
+        }
+
+        SetDataSelect2(arr) {
+            let data = []
+            let list = {}
+            if (arr.length > 0) arr.forEach((item) => {
+                list.id = item.ID
+                list.text = item.Name
+                data.push(list)
+            })
+
+            return data
         }
     }
     new Home();

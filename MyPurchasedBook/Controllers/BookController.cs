@@ -41,20 +41,6 @@ namespace MyPurchasedBook.Controllers
         }
         #endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //#region MyRegion
 
         //[HttpPut("{id}")]

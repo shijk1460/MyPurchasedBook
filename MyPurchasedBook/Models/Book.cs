@@ -18,8 +18,6 @@ namespace MyPurchasedBook.Models
         public string? Categories { get; set; }
         [JsonProperty("Description")]
         public string? Description { get; set; }
-        [JsonIgnore]
-        public DateTime? TimeStamp { get; set; }
         [JsonProperty("Image")]
         public byte[]? Image { get; set; }
         [JsonProperty("ImageType")]

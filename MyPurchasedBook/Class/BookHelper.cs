@@ -1,8 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using MyPurchasedBook.Models;
 using System.Data;
-using System.IO;
-
 namespace MyPurchasedBook.Class
 {
     public class BookHelper
@@ -83,6 +81,42 @@ namespace MyPurchasedBook.Class
         {
             try
             {
+                var AuthorList = book.Author.Split(',');
+                if (AuthorList.Length > 0) {
+                    for (int i = 0; i < AuthorList.Length; i++) {
+                        if (Int32.TryParse(AuthorList[i], out int numValue))
+                        {
+                            //Console.WriteLine(numValue);
+                        }
+                        else
+                        {
+                            AuthorHelper authorHelper = new AuthorHelper();
+                            var authorID = authorHelper.AddAuthor(AuthorList[i]);
+                            AuthorList[i] = authorID;
+                        }
+                    }
+                    book.Author = string.Join(',',AuthorList);
+                }
+
+                var CategoryList = book.Categories.Split(',');
+                if (CategoryList.Length > 0)
+                {
+                    for (int i = 0; i < CategoryList.Length; i++)
+                    {
+                        if (Int32.TryParse(CategoryList[i], out int numValue))
+                        {
+                            //Console.WriteLine(numValue);
+                        }
+                        else
+                        {
+                            //AuthorHelper authorHelper = new AuthorHelper();
+                            //var authorID = authorHelper.AddAuthor(AuthorList[i]);
+                            //AuthorList[i] = authorID;
+                        }
+                    }
+                    book.Categories = string.Join(',', CategoryList);
+                }
+
                 // Open the connection
                 conn.Open();
 
@@ -171,5 +205,7 @@ namespace MyPurchasedBook.Class
             return existBook;
         }
         #endregion
+
+        
     }
 }
