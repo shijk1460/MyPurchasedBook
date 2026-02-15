@@ -29,7 +29,10 @@
                         dataType: "json",
                         contentType: "application/json",
                     }).done((res) => {
-                        if (res) e.target.value = '';
+                        if (res) {
+                            ToastMessage(`${e.target.value} already exist`)
+                            e.target.value = '';
+                        }
                         else return
                     });
                 }
@@ -52,6 +55,24 @@
             this.isbn.addEventListener("blur", (e) => {
                 if (e.target.value.length == 10 || e.target.value.length == 13) {
                     e.preventDefault();
+
+                    $.ajax({
+                        type: 'GET',
+                        url: `${self.location.href}api/Book/CheckISBN`,
+                        data: { "ISBN": `${e.target.value}`, },
+                        error: function (e) {
+                            console.log(e);
+                        },
+                        dataType: "json",
+                        contentType: "application/json",
+                    }).done((res) => {
+                        if (res) {
+                            if (e.target.value) ToastMessage(`${e.target.value} already exist`)
+                            e.target.value = '';
+                        }
+                        else return
+                    });
+
                     if (e.target.value.length == 10) {
                         let checkISBN10digit = thisClass.CheckISBN10(e.target.value)
                         if (checkISBN10digit != e.target.value.charAt(e.target.value.length - 1)) thisClass.SetInvalidISBN(e.target)
@@ -69,7 +90,7 @@
                     if (e.nextElementSibling) {
                         e.nextElementSibling.children[0].children[0].classList.add('select2Required')
                     }
-                    
+
                     $(e).on('change', (element) => {
                         element.preventDefault();
                         if (element.target.value) {
@@ -89,47 +110,12 @@
             })
         }
 
-        DropdownSelect2() {
-            var data = [
-                {
-                    id: 0,
-                    text: 'enhancement'
-                },
-                {
-                    id: 1,
-                    text: 'bug'
-                },
-                {
-                    id: 2,
-                    text: 'duplicate'
-                },
-                {
-                    id: 3,
-                    text: 'invalid'
-                },
-                {
-                    id: 4,
-                    text: 'wontfix'
-                }
-            ];
+        async DropdownSelect2() {
+            await this.GetAuthorList()
 
-            this.GetAuthorList()
+            await this.GetPublisherList()
 
-            $('#PublisherSelect2').select2({
-                dropdownParent: $('#AddModal'),
-                tags: true,
-                allowClear: true,
-                placeholder: 'Select/Add Publisher(s)..',
-                data: data
-            }).val(null).trigger('change');
-
-            $('#CategoriesSelect2').select2({
-                dropdownParent: $('#AddModal'),
-                tags: true,
-                allowClear: true,
-                placeholder: 'Select/Add Categories..',
-                data: data
-            }).val(null).trigger('change');
+            await this.GetCategoriesList()
         }
 
         async GetAuthorList() {
@@ -143,10 +129,55 @@
                 dataType: "json",
                 contentType: "application/json",
             }).done((res) => {
-                console.log(res)
                 let data = thisClass.SetDataSelect2(res)
 
                 $('#AuthorSelect2').select2({
+                    dropdownParent: $('#AddModal'),
+                    tags: true,
+                    allowClear: true,
+                    placeholder: 'Select/Add Author(s)',
+                    data: data,
+                }).val(null).trigger('change');
+            });
+        }
+
+        async GetPublisherList() {
+            const thisClass = this
+            await $.ajax({
+                type: 'GET',
+                url: `${self.location.href}api/Publisher/GetPublisherList`,
+                error: function (e) {
+                    console.log(e);
+                },
+                dataType: "json",
+                contentType: "application/json",
+            }).done((res) => {
+                let data = thisClass.SetDataSelect2(res)
+
+                $('#PublisherSelect2').select2({
+                    dropdownParent: $('#AddModal'),
+                    tags: true,
+                    allowClear: true,
+                    placeholder: 'Select/Add Publisher(s)',
+                    data: data,
+                }).val(null).trigger('change');
+            });
+        }
+
+        async GetCategoriesList() {
+            const thisClass = this
+            await $.ajax({
+                type: 'GET',
+                url: `${self.location.href}api/Category/GetCategoryList`,
+                error: function (e) {
+                    console.log(e);
+                },
+                dataType: "json",
+                contentType: "application/json",
+            }).done((res) => {
+                let data = thisClass.SetDataSelect2(res)
+
+                $('#CategoriesSelect2').select2({
                     dropdownParent: $('#AddModal'),
                     tags: true,
                     allowClear: true,
@@ -172,13 +203,13 @@
             let imageType = ""
             Array.prototype.forEach.call(this.addBookClass, (e) => {
                 if (e.id == 'Image') {
-                    book[`${e.id}`] = thisClass.output.src
-                    imageType = e.files[0].type
+                    if (thisClass.output.src) book[`${e.id}`] = thisClass.output.src
+                    if (e.files[0]) imageType = e.files[0].type
                 }
                 else book[`${e.id.replace('Select2', '')}`] = $(e).val()
             })
 
-            let renameImage = book.Image.replace(`data:${imageType};base64,`, "")
+            let renameImage = book.Image ? book.Image.replace(`data:${imageType};base64,`, "") : ""
             await $.ajax({
                 type: 'POST',
                 url: `${self.location.href}api/Book`,
@@ -214,14 +245,14 @@
         }
 
         CheckISBN13(digits) {
-            let i, s = 0,t = 0, odd = 1, even = 3;
+            let i, s = 0, t = 0, odd = 1, even = 3;
             for (i = 0; i < 12; ++i) {
                 if (i % 2 == 0) t = digits[i] * odd;
                 else t = digits[i] * even;
                 s += t;
             }
-            
-            return 10 - (s % 10);
+
+            return 10 - (s % 10) == 10 ? 0 : 10 - (s % 10);
         }
 
         SetInvalidISBN(input) {
@@ -231,8 +262,8 @@
 
         SetDataSelect2(arr) {
             let data = []
-            let list = {}
             if (arr.length > 0) arr.forEach((item) => {
+                let list = {}
                 list.id = item.ID
                 list.text = item.Name
                 data.push(list)

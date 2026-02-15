@@ -36,3 +36,11 @@ GET {{MyPurchasedBook_HostAddress}}/api/book/CheckTitleBook?TitleName={{TitleNam
 GET {{MyPurchasedBook_HostAddress}}/api/author/GetAuthorList
 
 ###
+
+GET {{MyPurchasedBook_HostAddress}}/api/publisher/GetPublisherList
+
+###
+
+GET {{MyPurchasedBook_HostAddress}}/api/category/GetCategoryList
+
+###

@@ -41,6 +41,17 @@ namespace MyPurchasedBook.Controllers
         }
         #endregion
 
+        #region Check Exist ISBN 
+        [HttpGet]
+        [Route("CheckISBN")]
+        public bool CheckISBN(string ISBN)
+        {
+            BookHelper bookHelper = new BookHelper();
+            bool existBook = bookHelper.CheckISBN(ISBN);
+            return existBook;
+        }
+        #endregion
+
         //#region MyRegion
 
         //[HttpPut("{id}")]

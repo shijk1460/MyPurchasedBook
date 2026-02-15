@@ -181,7 +181,7 @@
                 divCol.className = "col";
 
                 const divCard = document.createElement("div");
-                divCard.className = "card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg";
+                divCard.className = "card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg CardOnHover";
                 //divCard.className = "card card-cover h-100 overflow-hidden shadow-lg";
 
                 const img = document.createElement("img");
@@ -189,7 +189,7 @@
                 //img.src = 'Contents/img/unsplash-photo-2.jpg';
                 img.src = `data:${value.ImageType};base64, ${value.Image}`;
                 img.onclick = () => {
-                    console.log(value.title)
+                    console.log(value.ISBN)
                 };
 
                 const divDetail = document.createElement("div");

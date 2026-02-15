@@ -103,3 +103,7 @@ span.select2-container {
 .select2-selection {
     align-content: center;
 }
+
+.CardOnHover:hover {
+    cursor:pointer
+}

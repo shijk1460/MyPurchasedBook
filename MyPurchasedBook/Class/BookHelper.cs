@@ -81,9 +81,12 @@ namespace MyPurchasedBook.Class
         {
             try
             {
-                var AuthorList = book.Author.Split(',');
-                if (AuthorList.Length > 0) {
-                    for (int i = 0; i < AuthorList.Length; i++) {
+                #region Author
+                var AuthorList = book.Author?.Split(',');
+                if (AuthorList?.Length > 0)
+                {
+                    for (int i = 0; i < AuthorList.Length; i++)
+                    {
                         if (Int32.TryParse(AuthorList[i], out int numValue))
                         {
                             //Console.WriteLine(numValue);
@@ -95,11 +98,29 @@ namespace MyPurchasedBook.Class
                             AuthorList[i] = authorID;
                         }
                     }
-                    book.Author = string.Join(',',AuthorList);
+                    book.Author = string.Join(',', AuthorList);
                 }
+                #endregion
 
-                var CategoryList = book.Categories.Split(',');
-                if (CategoryList.Length > 0)
+                #region Publisher
+                if (!string.IsNullOrEmpty(book.Publisher))
+                {
+                    if (Int32.TryParse(book.Publisher, out int numValue))
+                    {
+                        //Console.WriteLine(numValue);
+                    }
+                    else
+                    {
+                        PublisherHelper publisherHelper = new PublisherHelper();
+                        var publisherID = publisherHelper.AddPublisher(book.Publisher);
+                        book.Publisher = publisherID;
+                    }
+                }
+                #endregion
+
+                #region Categories
+                var CategoryList = book.Categories?.Split(',');
+                if (CategoryList?.Length > 0)
                 {
                     for (int i = 0; i < CategoryList.Length; i++)
                     {
@@ -109,19 +130,20 @@ namespace MyPurchasedBook.Class
                         }
                         else
                         {
-                            //AuthorHelper authorHelper = new AuthorHelper();
-                            //var authorID = authorHelper.AddAuthor(AuthorList[i]);
-                            //AuthorList[i] = authorID;
+                            CategoryHelper categoryHelper = new CategoryHelper();
+                            var categoryID = categoryHelper.AddCategory(CategoryList[i]);
+                            CategoryList[i] = categoryID;
                         }
                     }
                     book.Categories = string.Join(',', CategoryList);
                 }
+                #endregion
 
                 // Open the connection
                 conn.Open();
 
                 // 3. Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand($"INSERT INTO Books ([Title],[ISBN],[Author],[Publisher],[Publish Date],[TimeStamp],[Categories],[Description],[Image],[ImageType]) OUTPUT INSERTED.ISBN VALUES('{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', GETDATE(), '{book.Categories}', '{book.Description}', @Image, '{book.ImageType}');");
+                SqlCommand cmd = new SqlCommand($"INSERT INTO Books ([Title],[ISBN],[Author],[Publisher],[Publish Date],[TimeStamp],[Categories],[Description],[Image],[ImageType]) OUTPUT INSERTED.ISBN VALUES(N'{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', GETDATE(), '{book.Categories}', N'{book.Description}', @Image, '{book.ImageType}');");
 
                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary, book.Image.Length).Value = book.Image;
 
@@ -170,7 +192,7 @@ namespace MyPurchasedBook.Class
                 conn.Open();
 
                 // Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand($"Select Count([Title]) from Books Where [Title] COLLATE SQL_Latin1_General_CP1_CS_AS = '{TitleName}' Group By [Title]");
+                SqlCommand cmd = new SqlCommand($"Select Count([Title]) from Books Where [Title] COLLATE SQL_Latin1_General_CP1_CS_AS = N'{TitleName}' Group By [Title]");
                 cmd.Connection = conn;
 
                 // Use the connection
@@ -206,6 +228,50 @@ namespace MyPurchasedBook.Class
         }
         #endregion
 
-        
+        #region CheckISBN
+        public bool CheckISBN(string ISBN)
+        {
+            bool existISBN = false;
+            try
+            {
+                // Open the connection
+                conn.Open();
+
+                // Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand($"Select Count([ISBN]) from Books Where [ISBN] = '{ISBN}' Group By [ISBN]");
+                cmd.Connection = conn;
+
+                // Use the connection
+                // get query results
+                rdr = cmd.ExecuteReader();
+
+                // loop each record
+                while (rdr.Read())
+                {
+                    return Convert.ToUInt32(rdr[0].ToString()) > 0 ? true : false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.WriteLogs($"BookHelper.CheckISBN (Err) : {ex.Message}");
+            }
+            finally
+            {
+                // close the reader
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+
+                // Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return existISBN;
+        }
+        #endregion
     }
 }
