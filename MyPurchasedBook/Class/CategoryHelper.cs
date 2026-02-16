@@ -115,5 +115,23 @@ namespace MyPurchasedBook.Class
             return "";
         }
         #endregion
+
+        #region ReplaceCategoryValue
+        public string ReplaceCategoryValue(string Categories)
+        {
+            var CategoryList = Categories.Split(',');
+            if (CategoryList.Length > 0)
+            {
+                var categories = GetCategoryList();
+                for (int i = 0; i < CategoryList.Length; i++)
+                {
+                    var selectcategory = categories.Where((category) => category.ID.ToString() == CategoryList[i]);
+                    CategoryList[i] = selectcategory.FirstOrDefault().Name;
+                }
+                return string.Join(',', CategoryList);
+            }
+            return Categories;
+        }
+        #endregion
     }
 }

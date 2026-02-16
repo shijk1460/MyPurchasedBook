@@ -116,5 +116,22 @@ namespace MyPurchasedBook.Class
             return "";
         }
         #endregion
+
+        #region ReplaceAuthorValue
+        public string ReplaceAuthorValue (string Authors)
+        {
+            var AuthorList = Authors.Split(',');
+            if (AuthorList.Length > 0) {
+                var authors = GetAuthorList();
+                for (int i = 0; i < AuthorList.Length; i++)
+                {
+                    var selectAuthors = authors.Where((author) => author.ID.ToString() == AuthorList[i]);
+                    AuthorList[i] = selectAuthors.FirstOrDefault().Name;
+                }
+                return string.Join(',', AuthorList);
+            }
+            return Authors;
+        }
+        #endregion
     }
 }

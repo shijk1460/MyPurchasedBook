@@ -16,6 +16,7 @@
         init() {
             const thisClass = this;
             this.DropdownSelect2();
+            this.SetYear();
 
             this.Title.addEventListener("blur", async (e) => {
                 if (e.target.value) {
@@ -270,6 +271,12 @@
             })
 
             return data
+        }
+
+        SetYear() {
+            $('#PublishDate').Zebra_DatePicker({
+                format: 'Y'   
+            });
         }
     }
     new Home();

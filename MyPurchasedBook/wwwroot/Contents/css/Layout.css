@@ -30,7 +30,7 @@ input:invalid, textarea:invalid {
     width: 600px;
 }
 
-@@media (max-width: 800px) {
+@media (max-width: 800px) {
     .swal-height {
         height: 300px;
         width: 300px;
@@ -106,4 +106,8 @@ span.select2-container {
 
 .CardOnHover:hover {
     cursor:pointer
+}
+
+span.font-bold {
+    font-weight: bold;
 }

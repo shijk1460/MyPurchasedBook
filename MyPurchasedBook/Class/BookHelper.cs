@@ -27,13 +27,16 @@ namespace MyPurchasedBook.Class
                 conn.Open();
 
                 // Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("Select [Title],[ISBN],[Author],[Publisher],[Publish Date],[Categories],[Description],[Image] from Books");
+                SqlCommand cmd = new SqlCommand("Select [Title],[ISBN],[Author],[Publishers].[PublisherName] [Publisher],[Publish Date],[Categories],[Description],[Image] from Books INNER JOIN Publishers ON Publishers.PublisherID = [Publisher]");
                 cmd.Connection = conn;
 
                 // Use the connection
 
                 // get query results
                 rdr = cmd.ExecuteReader();
+
+                AuthorHelper authorHelper = new AuthorHelper();
+                CategoryHelper categoryHelper = new CategoryHelper();
 
                 // loop each record
                 while (rdr.Read())
@@ -42,10 +45,10 @@ namespace MyPurchasedBook.Class
                     {
                         Title = Convert.ToString(rdr["Title"]),
                         ISBN = Convert.ToString(rdr["ISBN"]),
-                        Author = Convert.ToString(rdr["Author"]),
+                        Author = authorHelper.ReplaceAuthorValue(Convert.ToString(rdr["Author"])),
                         Publisher = Convert.ToString(rdr["Publisher"]),
                         PublishDate = Convert.ToString(rdr["Publish Date"]),
-                        Categories = Convert.ToString(rdr["Categories"]),
+                        Categories = categoryHelper.ReplaceCategoryValue(Convert.ToString(rdr["Categories"])),
                         Description = Convert.ToString(rdr["Description"]),
                         Image = (rdr["Image"] == DBNull.Value) ? null : (byte[])rdr["Image"]
                     };

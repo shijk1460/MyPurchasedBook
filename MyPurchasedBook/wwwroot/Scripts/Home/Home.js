@@ -175,7 +175,7 @@
             //console.log(arr)
             arr.forEach((value, index) => {
                 //console.log(index)
-                //console.log(value)
+                console.log(value)
 
                 const divCol = document.createElement("div");
                 divCol.className = "col";
@@ -190,6 +190,43 @@
                 img.src = `data:${value.ImageType};base64, ${value.Image}`;
                 img.onclick = () => {
                     console.log(value.ISBN)
+
+                    let htmlbody = `<div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <img id="video" class="w-100" style="border: 1px solid gray" src="data:${value.ImageType};base64, ${value.Image}"/>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <div><label class="col-form-label"><span class="font-bold">${value.Title}</span></label></div>
+                                            <div><label class="col-form-label"><span class="font-bold">ISBN :</span> ${value.ISBN}</label></div>
+                                            <div><label class="col-form-label"><span class="font-bold">ผู้เขียน :</span> ${value.Author}</label></div>
+                                            <div><label class="col-form-label"><span class="font-bold">สำนักพิมพ์ :</span> ${value.Publisher}</label></div>
+                                            <div><label class="col-form-label"><span class="font-bold">ปีที่พิมพ์ :</span> ${new Date(value.PublishDate).getFullYear()}</label></div>
+                                            <div><label class="col-form-label"><span class="font-bold">หมวดหมู่ :</span> ${value.Categories}</label></div>
+                                        </div>
+                                        <div class="col-12">
+                                            ${value.Description}
+                                        </div>
+                                    </div>`
+
+                    Swal.fire({
+                        title: `<h1 id="swal-header" class="d-none">Add Book</h1>`,
+                        customClass: 'swal-height',
+                        width: 800,
+                        padding: 10,
+                        html: htmlbody,
+                        showLoaderOnConfirm: true,
+                        showCloseButton: false,
+                        showCancelButton: true,
+                        focusConfirm: false,
+                        showConfirmButton: false,
+                        cancelButtonText: `Close`,
+                        cancelButtonAriaLabel: "Thumbs down",
+                        draggable: true,
+                        allowOutsideClick: () => {
+                            !Swal.isLoading()
+                            $('.swal2-close').trigger('click')
+                        }
+                    })
                 };
 
                 const divDetail = document.createElement("div");
