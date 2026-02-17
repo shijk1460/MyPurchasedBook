@@ -27,7 +27,7 @@ namespace MyPurchasedBook.Class
                 conn.Open();
 
                 // Pass the connection to a command object
-                SqlCommand cmd = new SqlCommand("Select [Title],[ISBN],[Author],[Publishers].[PublisherName] [Publisher],[Publish Date],[Categories],[Description],[Image] from Books INNER JOIN Publishers ON Publishers.PublisherID = [Publisher]");
+                SqlCommand cmd = new SqlCommand("Select [Title],[ISBN],[Author],[Publishers].[PublisherName] [Publisher],[Publish Date],[Categories],[Description],[Image],[ImageType] from Books INNER JOIN Publishers ON Publishers.PublisherID = [Publisher]");
                 cmd.Connection = conn;
 
                 // Use the connection
@@ -50,7 +50,8 @@ namespace MyPurchasedBook.Class
                         PublishDate = Convert.ToString(rdr["Publish Date"]),
                         Categories = categoryHelper.ReplaceCategoryValue(Convert.ToString(rdr["Categories"])),
                         Description = Convert.ToString(rdr["Description"]),
-                        Image = (rdr["Image"] == DBNull.Value) ? null : (byte[])rdr["Image"]
+                        Image = (rdr["Image"] == DBNull.Value) ? null : (byte[])rdr["Image"],
+                        ImageType = Convert.ToString(rdr["ImageType"]),
                     };
 
                     bookList.Add(book);
@@ -274,6 +275,112 @@ namespace MyPurchasedBook.Class
             }
 
             return existISBN;
+        }
+        #endregion
+
+        #region EditBook
+        public string EditBook(Book book)
+        {
+            try
+            {
+                #region Author
+                var AuthorList = book.Author?.Split(',');
+                if (AuthorList?.Length > 0)
+                {
+                    for (int i = 0; i < AuthorList.Length; i++)
+                    {
+                        if (Int32.TryParse(AuthorList[i], out int numValue))
+                        {
+                            //Console.WriteLine(numValue);
+                        }
+                        else
+                        {
+                            AuthorHelper authorHelper = new AuthorHelper();
+                            var authorID = authorHelper.AddAuthor(AuthorList[i]);
+                            AuthorList[i] = authorID;
+                        }
+                    }
+                    book.Author = string.Join(',', AuthorList);
+                }
+                #endregion
+
+                #region Publisher
+                if (!string.IsNullOrEmpty(book.Publisher))
+                {
+                    if (Int32.TryParse(book.Publisher, out int numValue))
+                    {
+                        //Console.WriteLine(numValue);
+                    }
+                    else
+                    {
+                        PublisherHelper publisherHelper = new PublisherHelper();
+                        var publisherID = publisherHelper.AddPublisher(book.Publisher);
+                        book.Publisher = publisherID;
+                    }
+                }
+                #endregion
+
+                #region Categories
+                var CategoryList = book.Categories?.Split(',');
+                if (CategoryList?.Length > 0)
+                {
+                    for (int i = 0; i < CategoryList.Length; i++)
+                    {
+                        if (Int32.TryParse(CategoryList[i], out int numValue))
+                        {
+                            //Console.WriteLine(numValue);
+                        }
+                        else
+                        {
+                            CategoryHelper categoryHelper = new CategoryHelper();
+                            var categoryID = categoryHelper.AddCategory(CategoryList[i]);
+                            CategoryList[i] = categoryID;
+                        }
+                    }
+                    book.Categories = string.Join(',', CategoryList);
+                }
+                #endregion
+
+                // Open the connection
+                conn.Open();
+
+                // 3. Pass the connection to a command object
+                SqlCommand cmd = new SqlCommand($"UPDATE Books SET [Title] = N'{book.Title}',[Author] = '{book.Author}',[Publisher] = '{book.Publisher}',[Publish Date] = '{book.PublishDate}',[TimeStamp] = GETDATE(),[Categories] = '{book.Categories}',[Description] = N'{book.Description}',[Image] = @Image,[ImageType] = '{book.ImageType}' WHERE [ISBN] = '{book.ISBN}';");
+
+                cmd.Parameters.Add("@Image", SqlDbType.VarBinary, book.Image.Length).Value = book.Image;
+
+                cmd.Connection = conn;
+
+                // Use the connection
+
+                // get query results
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    return rdr[0].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.WriteLogs($"BookHelper.AddBook (Err) : {ex.Message}");
+            }
+            finally
+            {
+                // close the reader
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+
+                // Close the connection
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return "";
         }
         #endregion
     }

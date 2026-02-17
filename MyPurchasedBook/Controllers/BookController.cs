@@ -24,7 +24,8 @@ namespace MyPurchasedBook.Controllers
         public IActionResult Create(Book book)
         {
             BookHelper bookHelper = new BookHelper();
-            string bookList = bookHelper.AddBook(book);
+            var checkExistISBN = CheckISBN(book.ISBN);
+            string bookList = checkExistISBN == true ? bookHelper.EditBook(book) : bookHelper.AddBook(book);
             //return Ok(bookList);
             return CreatedAtAction(null, new { id = bookList }, book);
         }

@@ -231,7 +231,7 @@
                 dataType: "json",
                 contentType: "application/json"
             });
-
+            
             $('#AddModal').modal('toggle');
         }
 
