@@ -24,10 +24,9 @@ namespace MyPurchasedBook.Controllers
         public IActionResult Create(Book book)
         {
             BookHelper bookHelper = new BookHelper();
-            var checkExistISBN = CheckISBN(book.ISBN);
-            string bookList = checkExistISBN == true ? bookHelper.EditBook(book) : bookHelper.AddBook(book);
-            //return Ok(bookList);
-            return CreatedAtAction(null, new { id = bookList }, book);
+            string bookID = bookHelper.AddBook(book);
+            return CreatedAtAction(null, new { id = bookID }, book);
+
         }
         #endregion
 
@@ -53,38 +52,35 @@ namespace MyPurchasedBook.Controllers
         }
         #endregion
 
-        //#region MyRegion
+        #region UpdateBook
+        [HttpPut]
+        public IActionResult Update(Book book)
+        {
+            BookHelper bookHelper = new BookHelper();
+            var checkExistISBN = CheckISBN(book.ISBN);
+            if (checkExistISBN)
+            {
+                bookHelper.EditBook(book);
+                return NoContent();
+            }
+            else return NotFound();
+        }
+        #endregion
 
-        //[HttpPut("{id}")]
-        //public IActionResult Update(int id, Pizza pizza)
-        //{
-        //    if (id != pizza.Id)
-        //        return BadRequest();
+        #region DeleteBook
+        [HttpDelete("{ISBN}")]
+        public IActionResult Delete(string ISBN)
+        {
+            BookHelper bookHelper = new BookHelper();
+            var checkExistISBN = bookHelper.CheckISBN(ISBN);
 
-        //    var existingPizza = PizzaService.Get(id);
-        //    if (existingPizza is null)
-        //        return NotFound();
+            if (!checkExistISBN)
+                return NotFound();
 
-        //    PizzaService.Update(pizza);
+            bookHelper.DeleteBook(ISBN);
 
-        //    return NoContent();
-        //}
-        //#endregion
-
-        //#region MyRegion
-
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    var pizza = PizzaService.Get(id);
-
-        //    if (pizza is null)
-        //        return NotFound();
-
-        //    PizzaService.Delete(id);
-
-        //    return NoContent();
-        //}
-        //#endregion
+            return NoContent();
+        }
+        #endregion
     }
 }

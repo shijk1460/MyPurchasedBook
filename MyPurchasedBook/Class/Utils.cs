@@ -1,11 +1,11 @@
-﻿using System.Formats.Tar;
-using System.IO;
+﻿using MyPurchasedBook.Models;
 
 namespace MyPurchasedBook.Class
 {
     public class Utils
     {
-        public async Task<string> ReadFile()
+        #region ReadFile
+        public static async Task<string> ReadFile()
         {
             try
             {
@@ -22,9 +22,11 @@ namespace MyPurchasedBook.Class
                 return "";
             }
         }
+        #endregion
 
-
-        public static void WriteLogs(string sentence) {
+        #region WriteLogs
+        public static void WriteLogs(string sentence)
+        {
             // Create a string with a line of text.
             string text = sentence + Environment.NewLine;
 
@@ -34,7 +36,9 @@ namespace MyPurchasedBook.Class
             CheckCreateFolder(path);
             CheckExistFile(path, text);
         }
+        #endregion
 
+        #region CheckCreateFolder
         public static void CheckCreateFolder(string path)
         {
             // Determine whether the directory exists.
@@ -52,12 +56,14 @@ namespace MyPurchasedBook.Class
                 }
                 catch (Exception ex)
                 {
-                    WriteLogs($"Utils.ReadFile (Err) : {ex.Message}");
+                    WriteLogs($"Utils.CheckCreateFolder (Err) : {ex.Message}");
                     return;
                 }
             }
         }
+        #endregion
 
+        #region CheckExistFile
         public static void CheckExistFile(string path, string sentence)
         {
             var fileName = $"{DateTime.Now.ToString("yyyyMMdd")}.txt";
@@ -67,10 +73,21 @@ namespace MyPurchasedBook.Class
                 // Append new lines of text to the file
                 File.AppendAllText(Path.Combine(path, fileName), $"{time} : {sentence}");
             }
-            else {
+            else
+            {
                 // Write the text to a new file named "WriteFile.txt".
                 File.WriteAllText(Path.Combine(path, fileName), $"{time} : {sentence}");
             }
         }
+        #endregion
+
+        #region WriteEvent
+        public static bool WriteEvent(Events events)
+        {
+            var sql = $"INSERT INTO MonitorLogs ([MonitorTable],[MonitorEvent]) OUTPUT INSERTED.MonitorID VALUES('{events.TableName}', N'{events.Json}');";
+            bool SqlResult = DbHelper.ExecuteSqlbool(sql);
+            return SqlResult;
+        }
+        #endregion
     }
 }

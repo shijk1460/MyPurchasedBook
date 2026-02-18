@@ -44,3 +44,16 @@ GET {{MyPurchasedBook_HostAddress}}/api/publisher/GetPublisherList
 GET {{MyPurchasedBook_HostAddress}}/api/category/GetCategoryList
 
 ###
+
+PUT {{MyPurchasedBook_HostAddress}}/api/book
+Content-Type: application/json
+
+{
+  //Book
+}
+
+###
+
+DELETE {{MyPurchasedBook_HostAddress}}/api/book/{{ISBN}}
+
+###

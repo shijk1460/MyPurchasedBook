@@ -33,29 +33,19 @@
                 success: function (data) {
                     if (data.length > 0) {
                         document.getElementById('custom-cards').replaceChildren();
-                        //console.log(Object.entries(data))
-
                         const perRow = 3
 
                         const result = data.reduce((resultArray, item, index) => {
                             const chunkIndex = Math.floor(index / perRow)
 
                             if (!resultArray[chunkIndex]) {
-                                resultArray[chunkIndex] = [] // start a new chunk
+                                resultArray[chunkIndex] = []
                             }
 
                             resultArray[chunkIndex].push(item)
 
                             return resultArray
                         }, [])
-
-                        //console.log(result)
-
-                        //Object.entries(result).forEach((value, index) => {
-                        //    //console.log(index)
-                        //    //console.log(value[1])
-                        //    thisClass.createCard(value[1])
-                        //})
 
                         for (var i = 0; i < result.length; i++) {
                             thisClass.createCard(result[i])
@@ -71,6 +61,7 @@
         }
 
         createCard(arr) {
+            const thisClass = this
             const div = document.createElement("div");
             div.className = "row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3";
 
@@ -185,9 +176,36 @@
                             !Swal.isLoading()
                             $('.swal2-close').trigger('click')
                         } else if (result.isDenied) {
-                            //Swal.fire("Changes are not saved", "", "info");
                             !Swal.isLoading()
                             $('.swal2-close').trigger('click')
+                            Swal.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Yes, delete it!"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        type: 'DELETE',
+                                        url: `${self.location.href}api/Book/${value.ISBN}`,
+                                        error: function (e) {
+                                            console.log(e);
+                                        },
+                                        dataType: "json",
+                                        contentType: "application/json",
+                                    }).done(() => {
+                                        Swal.fire({
+                                            title: "Deleted!",
+                                            text: "Your file has been deleted.",
+                                            icon: "success"
+                                        });
+                                        thisClass.GetBooks()
+                                    });
+                                }
+                            });
                         }
                     });
                 };

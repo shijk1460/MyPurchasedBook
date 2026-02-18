@@ -212,7 +212,7 @@
 
             let renameImage = book.Image ? book.Image.replace(`data:${imageType};base64,`, "") : ""
             await $.ajax({
-                type: 'POST',
+                type: document.getElementById('AddBookLabel').innerHTML == 'Add Book' ? 'POST' : 'PUT',
                 url: `${self.location.href}api/Book`,
                 data: JSON.stringify({
                     "Title": `${book.Title}`,
