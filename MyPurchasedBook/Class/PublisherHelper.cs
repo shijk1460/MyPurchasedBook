@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using MyPurchasedBook.Models;
+﻿using MyPurchasedBook.Models;
 
 namespace MyPurchasedBook.Class
 {
@@ -8,7 +7,7 @@ namespace MyPurchasedBook.Class
         #region GetPublisherList
         public List<Publisher> GetPublisherList()
         {
-            var sql = "Select [PublisherID],[PublisherName] from Publishers";
+            var sql = "GetPublisherList";
             List<Publisher> SqlResult = DbHelper.ExecuteSqlListPublisher(sql);
             return SqlResult;
         }
@@ -17,7 +16,7 @@ namespace MyPurchasedBook.Class
         #region AddPublisher
         public string AddPublisher(string PublisherName)
         {
-            var sql = $"INSERT INTO Publishers ([PublisherName]) OUTPUT INSERTED.PublisherID VALUES(N'{PublisherName}');";
+            var sql = $"InsertPublisher N'{PublisherName}'";
             string SqlResult = DbHelper.ExecuteSqlstring(sql);
             return SqlResult;
         }

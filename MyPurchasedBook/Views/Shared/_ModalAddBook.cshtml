@@ -12,7 +12,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <span id="spanISBN" class="input-group-text">ISBN <span class="req">*</span></span>
-                    <input type="text" id="ISBN" pattern="[0-9].{9,}" minlength="10" maxlength="13" class="form-control height40px addBook" required>
+                    <input type="text" id="ISBN" minlength="10" maxlength="13" class="form-control height40px addBook" required>
                 </div>
                 <div class="mb-3">
                     <span id="spanAuthor" class="col-form-label">Author <span class="req">*</span></span>
@@ -41,9 +41,12 @@
                     <span id="spanImage" class="col-form-label">Image</span>
                     <input class="form-control height40px addBook" type="file" id="Image" accept=".jpg, .jpeg, .png">
                 </div>
-
                 <div class="mb-3 d-flex justify-content-center d-none" id="divImage">
                     <img id='output' style="height:100px; width:100px;">
+                </div>
+                <div class="input-group mb-3">
+                    <span id="spanPrice" class="input-group-text">Price</span>
+                    <input type="text" id="Price" maxlength="18" class="form-control height40px addBook">
                 </div>
             </div>
             <div class="modal-footer justify-content-center">

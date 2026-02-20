@@ -6,7 +6,7 @@ namespace MyPurchasedBook.Class
         #region GetBook
         public List<Book> GetBook()
         {
-            var sql = "Select [Title],[ISBN],[Author],[Publishers].[PublisherName] [Publisher],[Publish Date],[Categories],[Description],[Image],[ImageType] from Books INNER JOIN Publishers ON Publishers.PublisherID = [Publisher]";
+            var sql = "GetBookList";
             List<Book> SqlResult = DbHelper.ExecuteSqlListBook(sql);
             return SqlResult;
         }
@@ -73,7 +73,7 @@ namespace MyPurchasedBook.Class
             }
             #endregion
 
-            var sql = $"INSERT INTO Books ([Title],[ISBN],[Author],[Publisher],[Publish Date],[TimeStamp],[Categories],[Description],[Image],[ImageType]) OUTPUT INSERTED.ISBN VALUES(N'{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', GETDATE(), '{book.Categories}', N'{book.Description}', @Image, '{book.ImageType}');";
+            var sql = $"InsertBook N'{book.Title}', '{book.ISBN}', '{book.Author}', '{book.Publisher}', '{book.PublishDate}', '{book.Categories}', N'{book.Description}', @Image, '{book.ImageType}','{book.Price}'";
             string SqlResult = DbHelper.ExecuteSqlstringImage(sql, book.Image);
             return SqlResult;
         }
@@ -82,7 +82,7 @@ namespace MyPurchasedBook.Class
         #region CheckTitleBook
         public bool CheckTitleBook(string TitleName)
         {
-            var sql = $"Select Count([Title]) from Books Where [Title] COLLATE SQL_Latin1_General_CP1_CS_AS = N'{TitleName}' Group By [Title]";
+            var sql = $"CheckTitleBooks N'{TitleName}'";
             bool SqlResult = DbHelper.ExecuteSqlbool(sql);
             return SqlResult;
         }
@@ -91,7 +91,7 @@ namespace MyPurchasedBook.Class
         #region CheckISBN
         public bool CheckISBN(string ISBN)
         {
-            var sql = $"Select Count([ISBN]) from Books Where [ISBN] = '{ISBN}' Group By [ISBN]";
+            var sql = $"CheckISBN '{ISBN}'";
             bool SqlResult = DbHelper.ExecuteSqlbool(sql);
             return SqlResult;
         }
@@ -100,7 +100,7 @@ namespace MyPurchasedBook.Class
         #region EditBook
         public string EditBook(Book book)
         {
-            var sql = $"UPDATE Books SET [Title] = N'{book.Title}',[Author] = '{book.Author}',[Publisher] = '{book.Publisher}',[Publish Date] = '{book.PublishDate}',[TimeStamp] = GETDATE(),[Categories] = '{book.Categories}',[Description] = N'{book.Description}',[Image] = @Image,[ImageType] = '{book.ImageType}' WHERE [ISBN] = '{book.ISBN}';";
+            var sql = $"UpdateBook N'{book.Title}', '{book.Author}', '{book.Publisher}','{book.PublishDate}','{book.Categories}', N'{book.Description}',@Image,'{book.ImageType}','{book.ISBN}','{book.Price}'";
             string SqlResult = DbHelper.ExecuteSqlstringImage(sql, book.Image);
             return SqlResult;
         }
@@ -109,7 +109,7 @@ namespace MyPurchasedBook.Class
         #region DeleteBook
         public string DeleteBook(string ISBN)
         {
-            var sql = $"DELETE FROM Books WHERE [ISBN] = '{ISBN}';";
+            var sql = $"DeleteBook '{ISBN}'";
             string SqlResult = DbHelper.ExecuteSqlstring(sql);
             return SqlResult;
         }

@@ -22,5 +22,7 @@ namespace MyPurchasedBook.Models
         public byte[]? Image { get; set; }
         [JsonProperty("ImageType")]
         public string? ImageType { get; set; }
+        [JsonProperty("Price")]
+        public decimal? Price { get; set; }
     }
 }

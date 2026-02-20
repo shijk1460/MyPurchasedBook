@@ -8,7 +8,7 @@ namespace MyPurchasedBook.Class
         #region GetCategoryList
         public List<Category> GetCategoryList()
         {
-            var sql = "Select [CategoryID],[CategoryName] from Categories";
+            var sql = "GetCategoryList";
             List<Category> SqlResult = DbHelper.ExecuteSqlListCategory(sql);
             return SqlResult;
         }
@@ -17,7 +17,7 @@ namespace MyPurchasedBook.Class
         #region AddCategory
         public string AddCategory(string CategoryName)
         {
-            var sql = $"INSERT INTO Categories ([CategoryName]) OUTPUT INSERTED.CategoryID VALUES(N'{CategoryName}');";
+            var sql = $"InsertCategory N'{CategoryName}'";
             string SqlResult = DbHelper.ExecuteSqlstring(sql);
             return SqlResult;
         }

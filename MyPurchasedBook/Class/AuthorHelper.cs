@@ -8,7 +8,7 @@ namespace MyPurchasedBook.Class
         #region GetAuthorList
         public List<Author> GetAuthorList()
         {
-            var sql = "Select [AuthorID],[AuthorName] from Authors";
+            var sql = "GetAuthorList";
             List<Author> SqlResult = DbHelper.ExecuteSqlListAuthor(sql);
             return SqlResult;
         }
@@ -17,7 +17,7 @@ namespace MyPurchasedBook.Class
         #region AddAuthor
         public string AddAuthor(string AuthorName)
         {
-            var sql = $"INSERT INTO Authors ([AuthorName]) OUTPUT INSERTED.AuthorID VALUES(N'{AuthorName}');";
+            var sql = $"InsertAuthor N'{AuthorName}'";
             string SqlResult = DbHelper.ExecuteSqlstring(sql);
             return SqlResult;
         }

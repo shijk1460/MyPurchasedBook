@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using MyPurchasedBook.Models;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MyPurchasedBook.Class
 {
@@ -43,10 +44,11 @@ namespace MyPurchasedBook.Class
                         Author = authorHelper.ReplaceAuthorValue(Convert.ToString(rdr["Author"])),
                         Publisher = Convert.ToString(rdr["Publisher"]),
                         PublishDate = Convert.ToString(rdr["Publish Date"]),
-                        Categories = categoryHelper.ReplaceCategoryValue(Convert.ToString(rdr["Categories"])),
+                        Categories = (rdr["Categories"] == "") ? "" : categoryHelper.ReplaceCategoryValue(Convert.ToString(rdr["Categories"])),
                         Description = Convert.ToString(rdr["Description"]),
                         Image = (rdr["Image"] == DBNull.Value) ? null : (byte[])rdr["Image"],
                         ImageType = Convert.ToString(rdr["ImageType"]),
+                        Price = Convert.ToDecimal(rdr["Price"]),
                     };
 
                     bookList.Add(book);

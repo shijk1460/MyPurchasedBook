@@ -9,13 +9,14 @@
             this.elementsSelect = document.body.getElementsByTagName('select');
             this.btnConfirm = document.getElementById('btnConfirm');
             this.addBookClass = document.querySelectorAll('.addBook');
+            this.price = document.getElementById("Price")
 
+            this.DropdownSelect2();
             this.init()
         }
 
         init() {
             const thisClass = this;
-            this.DropdownSelect2();
             this.SetYear();
 
             this.Title.addEventListener("blur", async (e) => {
@@ -109,6 +110,17 @@
                 if (checkRequired) await thisClass.prepareData()
                 else ToastMessage(`Please fill required field(s)`)
             })
+
+            this.price.addEventListener("beforeinput", (e) => {
+                if (!((e.data >= 0 && e.data <= 9) || e.data == '.')) {
+                    e.preventDefault();
+                }
+            });
+
+            this.price.addEventListener("blur", (e) => {
+                if (isNaN(parseFloat(e.target.value).toFixed(2))) e.target.value = ''
+                else e.target.value = parseFloat(e.target.value).toFixed(2)
+            });
         }
 
         async DropdownSelect2() {
@@ -207,6 +219,7 @@
                     if (thisClass.output.src) book[`${e.id}`] = thisClass.output.src
                     if (e.files[0]) imageType = e.files[0].type
                 }
+                else if (e.id == 'Price') book[`${e.id}`] = parseFloat($(e).val()).toFixed(2)
                 else book[`${e.id.replace('Select2', '')}`] = $(e).val()
             })
 
@@ -224,6 +237,7 @@
                     "Description": `${book.Description}`,
                     "Image": `${renameImage}`,
                     "ImageType": `${imageType}`,
+                    "Price": `${book.Price}`
                 }),
                 error: function (e) {
                     console.log(e);

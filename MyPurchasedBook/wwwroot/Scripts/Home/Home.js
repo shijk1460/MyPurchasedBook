@@ -21,7 +21,6 @@
                 })
                 thisClass.GetBooks()
             })
-
         }
 
         async GetBooks() {
@@ -172,6 +171,10 @@
                                 document.getElementById('output').src = `data:${value.ImageType};base64, ${value.Image}`;
                                 document.getElementById('divImage').classList.remove('d-none')
                             }
+
+                            document.getElementById('Price').value = `${parseFloat(value.Price).toFixed(2)}`
+
+
                             
                             !Swal.isLoading()
                             $('.swal2-close').trigger('click')
