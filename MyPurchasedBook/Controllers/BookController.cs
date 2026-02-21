@@ -31,12 +31,12 @@ namespace MyPurchasedBook.Controllers
         #endregion
 
         #region Check Exist Title Book
-        [HttpGet]
+        [HttpPost]
         [Route("CheckTitleBook")]
-        public bool CheckTitleBook(string TitleName)
+        public bool CheckTitleBook(CheckTitleBook checkTitleBook)
         {
             BookHelper bookHelper = new BookHelper();
-            bool existBook = bookHelper.CheckTitleBook(TitleName);
+            bool existBook = bookHelper.CheckTitleBook(checkTitleBook.Title, checkTitleBook.ISBN);
             return existBook;
         }
         #endregion

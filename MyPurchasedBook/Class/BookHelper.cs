@@ -80,9 +80,9 @@ namespace MyPurchasedBook.Class
         #endregion
 
         #region CheckTitleBook
-        public bool CheckTitleBook(string TitleName)
+        public bool CheckTitleBook(string TitleName, string ISBN)
         {
-            var sql = $"CheckTitleBooks N'{TitleName}'";
+            var sql = $"CheckTitleBooks N'{TitleName}','{ISBN}'";
             bool SqlResult = DbHelper.ExecuteSqlbool(sql);
             return SqlResult;
         }
@@ -100,7 +100,66 @@ namespace MyPurchasedBook.Class
         #region EditBook
         public string EditBook(Book book)
         {
-            var sql = $"UpdateBook N'{book.Title}', '{book.Author}', '{book.Publisher}','{book.PublishDate}','{book.Categories}', N'{book.Description}',@Image,'{book.ImageType}','{book.ISBN}','{book.Price}'";
+
+            #region Author
+            var AuthorList = book.Author?.Split(',');
+            if (AuthorList?.Length > 0)
+            {
+                for (int i = 0; i < AuthorList.Length; i++)
+                {
+                    if (Int32.TryParse(AuthorList[i], out int numValue))
+                    {
+                        //Console.WriteLine(numValue);
+                    }
+                    else
+                    {
+                        AuthorHelper authorHelper = new AuthorHelper();
+                        var authorID = authorHelper.AddAuthor(AuthorList[i]);
+                        AuthorList[i] = authorID;
+                    }
+                }
+                book.Author = string.Join(',', AuthorList);
+            }
+            #endregion
+
+            #region Publisher
+            if (!string.IsNullOrEmpty(book.Publisher))
+            {
+                if (Int32.TryParse(book.Publisher, out int numValue))
+                {
+                    //Console.WriteLine(numValue);
+                }
+                else
+                {
+                    PublisherHelper publisherHelper = new PublisherHelper();
+                    var publisherID = publisherHelper.AddPublisher(book.Publisher);
+                    book.Publisher = publisherID;
+                }
+            }
+            #endregion
+
+            #region Categories
+            var CategoryList = book.Categories?.Split(',');
+            if (CategoryList?.Length > 0)
+            {
+                for (int i = 0; i < CategoryList.Length; i++)
+                {
+                    if (Int32.TryParse(CategoryList[i], out int numValue))
+                    {
+                        //Console.WriteLine(numValue);
+                    }
+                    else
+                    {
+                        CategoryHelper categoryHelper = new CategoryHelper();
+                        var categoryID = categoryHelper.AddCategory(CategoryList[i]);
+                        CategoryList[i] = categoryID;
+                    }
+                }
+                book.Categories = string.Join(',', CategoryList);
+            }
+            #endregion
+
+            var sql = $"UpdateBook N'{book.Title}', '{book.Author}', '{book.Publisher}','{book.PublishDate}','{book.Categories}', N'{book.Description}',@Image,'{book.ImageType}','{book.ISBN}',{book.Price}";
             string SqlResult = DbHelper.ExecuteSqlstringImage(sql, book.Image);
             return SqlResult;
         }

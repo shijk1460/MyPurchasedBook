@@ -11,7 +11,6 @@
             this.addBookClass = document.querySelectorAll('.addBook');
             this.price = document.getElementById("Price")
 
-            this.DropdownSelect2();
             this.init()
         }
 
@@ -22,9 +21,12 @@
             this.Title.addEventListener("blur", async (e) => {
                 if (e.target.value) {
                     await $.ajax({
-                        type: 'GET',
+                        type: 'POST',
                         url: `${self.location.href}api/Book/CheckTitleBook`,
-                        data: { "TitleName": `${e.target.value}`, },
+                        data: JSON.stringify({
+                            "Title": `${e.target.value}`,
+                            "ISBN": `${thisClass.isbn.value}`
+                        }),
                         error: function (e) {
                             console.log(e);
                         },
@@ -85,6 +87,7 @@
                     }
                 }
                 else thisClass.SetInvalidISBN(e.target)
+                $('#Title').trigger('blur')
             });
 
             Array.prototype.forEach.call(this.elementsSelect, (e) => {
@@ -120,83 +123,6 @@
             this.price.addEventListener("blur", (e) => {
                 if (isNaN(parseFloat(e.target.value).toFixed(2))) e.target.value = ''
                 else e.target.value = parseFloat(e.target.value).toFixed(2)
-            });
-        }
-
-        async DropdownSelect2() {
-            await this.GetAuthorList()
-
-            await this.GetPublisherList()
-
-            await this.GetCategoriesList()
-        }
-
-        async GetAuthorList() {
-            const thisClass = this
-            await $.ajax({
-                type: 'GET',
-                url: `${self.location.href}api/Author/GetAuthorList`,
-                error: function (e) {
-                    console.log(e);
-                },
-                dataType: "json",
-                contentType: "application/json",
-            }).done((res) => {
-                let data = thisClass.SetDataSelect2(res)
-
-                $('#AuthorSelect2').select2({
-                    dropdownParent: $('#AddModal'),
-                    tags: true,
-                    allowClear: true,
-                    placeholder: 'Select/Add Author(s)',
-                    data: data,
-                }).val(null).trigger('change');
-            });
-        }
-
-        async GetPublisherList() {
-            const thisClass = this
-            await $.ajax({
-                type: 'GET',
-                url: `${self.location.href}api/Publisher/GetPublisherList`,
-                error: function (e) {
-                    console.log(e);
-                },
-                dataType: "json",
-                contentType: "application/json",
-            }).done((res) => {
-                let data = thisClass.SetDataSelect2(res)
-
-                $('#PublisherSelect2').select2({
-                    dropdownParent: $('#AddModal'),
-                    tags: true,
-                    allowClear: true,
-                    placeholder: 'Select/Add Publisher(s)',
-                    data: data,
-                }).val(null).trigger('change');
-            });
-        }
-
-        async GetCategoriesList() {
-            const thisClass = this
-            await $.ajax({
-                type: 'GET',
-                url: `${self.location.href}api/Category/GetCategoryList`,
-                error: function (e) {
-                    console.log(e);
-                },
-                dataType: "json",
-                contentType: "application/json",
-            }).done((res) => {
-                let data = thisClass.SetDataSelect2(res)
-
-                $('#CategoriesSelect2').select2({
-                    dropdownParent: $('#AddModal'),
-                    tags: true,
-                    allowClear: true,
-                    placeholder: 'Select/Add Author(s)',
-                    data: data,
-                }).val(null).trigger('change');
             });
         }
 
@@ -273,18 +199,6 @@
         SetInvalidISBN(input) {
             input.value = ''
             ToastMessage(`Your ISBN not valid`)
-        }
-
-        SetDataSelect2(arr) {
-            let data = []
-            if (arr.length > 0) arr.forEach((item) => {
-                let list = {}
-                list.id = item.ID
-                list.text = item.Name
-                data.push(list)
-            })
-
-            return data
         }
 
         SetYear() {

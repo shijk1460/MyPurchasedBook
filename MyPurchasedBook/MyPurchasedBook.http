@@ -28,11 +28,6 @@ Content-Type: application/json
 
 ###
 
-@TitleName=string
-GET {{MyPurchasedBook_HostAddress}}/api/book/CheckTitleBook?TitleName={{TitleName}}
-
-###
-
 GET {{MyPurchasedBook_HostAddress}}/api/author/GetAuthorList
 
 ###
@@ -55,5 +50,9 @@ Content-Type: application/json
 ###
 
 DELETE {{MyPurchasedBook_HostAddress}}/api/book/{{ISBN}}
+
+###
+
+GET {{MyPurchasedBook_HostAddress}}/api/book/CheckTitleBook
 
 ###

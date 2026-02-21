@@ -25,4 +25,11 @@ namespace MyPurchasedBook.Models
         [JsonProperty("Price")]
         public decimal? Price { get; set; }
     }
+
+    public class CheckTitleBook {
+        [JsonProperty("Title")]
+        public string? Title { get; set; }
+        [JsonProperty("ISBN")]
+        public string? ISBN { get; set; }
+    }
 }

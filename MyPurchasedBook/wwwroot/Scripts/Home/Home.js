@@ -10,6 +10,7 @@
         init() {
             const thisClass = this
             this.GetBooks()
+            this.DropdownSelect2();
             this.addModal.addEventListener('hidden.bs.modal', () => {
                 Array.prototype.forEach.call(thisClass.addBookClass, (e) => {
                     e.value = '';
@@ -20,6 +21,7 @@
                     $(e).trigger('change')
                 })
                 thisClass.GetBooks()
+                thisClass.DropdownSelect2();
             })
         }
 
@@ -30,6 +32,7 @@
                 url: `${self.location.href}api/Book/GetBook`,
                 type: "GET",
                 success: function (data) {
+                    console.log(data)
                     if (data.length > 0) {
                         document.getElementById('custom-cards').replaceChildren();
                         const perRow = 3
@@ -57,6 +60,98 @@
                     }
                 }
             });
+        }
+
+        async DropdownSelect2() {
+            await this.GetAuthorList()
+
+            await this.GetPublisherList()
+
+            await this.GetCategoriesList()
+        }
+
+        async GetAuthorList() {
+            const thisClass = this
+            await $.ajax({
+                type: 'GET',
+                url: `${self.location.href}api/Author/GetAuthorList`,
+                error: function (e) {
+                    console.log(e);
+                },
+                dataType: "json",
+                contentType: "application/json",
+            }).done((res) => {
+                let data = thisClass.SetDataSelect2(res)
+                console.log('GetAuthorList')
+                console.log(data)
+                $('#AuthorSelect2').select2({
+                    dropdownParent: $('#AddModal'),
+                    tags: true,
+                    allowClear: true,
+                    placeholder: 'Select/Add Author(s)',
+                    data: data,
+                }).val(null).trigger('change');
+            });
+        }
+
+        async GetPublisherList() {
+            const thisClass = this
+            await $.ajax({
+                type: 'GET',
+                url: `${self.location.href}api/Publisher/GetPublisherList`,
+                error: function (e) {
+                    console.log(e);
+                },
+                dataType: "json",
+                contentType: "application/json",
+            }).done((res) => {
+                let data = thisClass.SetDataSelect2(res)
+                console.log('GetPublisherList')
+                console.log(data)
+                $('#PublisherSelect2').select2({
+                    dropdownParent: $('#AddModal'),
+                    tags: true,
+                    allowClear: true,
+                    placeholder: 'Select/Add Publisher(s)',
+                    data: data,
+                }).val(null).trigger('change');
+            });
+        }
+
+        async GetCategoriesList() {
+            const thisClass = this
+            await $.ajax({
+                type: 'GET',
+                url: `${self.location.href}api/Category/GetCategoryList`,
+                error: function (e) {
+                    console.log(e);
+                },
+                dataType: "json",
+                contentType: "application/json",
+            }).done((res) => {
+                let data = thisClass.SetDataSelect2(res)
+                console.log('GetCategoriesList')
+                console.log(data)
+                $('#CategoriesSelect2').select2({
+                    dropdownParent: $('#AddModal'),
+                    tags: true,
+                    allowClear: true,
+                    placeholder: 'Select/Add Author(s)',
+                    data: data,
+                }).val(null).trigger('change');
+            });
+        }
+
+        SetDataSelect2(arr) {
+            let data = []
+            if (arr.length > 0) arr.forEach((item) => {
+                let list = {}
+                list.id = item.ID
+                list.text = item.Name
+                data.push(list)
+            })
+
+            return data
         }
 
         createCard(arr) {
