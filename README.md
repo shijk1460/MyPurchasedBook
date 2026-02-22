@@ -50,3 +50,11 @@ will prevail.
 * https://www.freepik.com/free-vector/illustration-gallery-icon_2922280.htm#fromView=search&page=1&position=0&uuid=3166d961-9dee-4eca-8083-4e1656ba5651&query=no+image
 
 ![no image](MyPurchasedBook/wwwroot/Contents/img/no_image.jpg)
+
+### Thank for these libraries
+* https://getbootstrap.com/
+* https://stefangabos.github.io/Zebra_Datepicker/
+* https://select2.org/
+* https://apvarun.github.io/toastify-js/#
+* https://github.com/zxing-js/library
+* https://sweetalert2.github.io/
