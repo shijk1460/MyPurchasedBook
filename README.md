@@ -49,3 +49,4 @@ will prevail.
 ```
 * https://www.freepik.com/free-vector/illustration-gallery-icon_2922280.htm#fromView=search&page=1&position=0&uuid=3166d961-9dee-4eca-8083-4e1656ba5651&query=no+image
 
+![no image](/assets/no_image.png)
