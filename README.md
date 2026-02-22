@@ -46,5 +46,6 @@ terms of use, available online in the following link:
 The terms described in the above link have precedence over the terms described
 in the present document. In case of disagreement, the Freepik Terms of Use
 will prevail.
-
 ```
+* https://www.freepik.com/free-vector/illustration-gallery-icon_2922280.htm#fromView=search&page=1&position=0&uuid=3166d961-9dee-4eca-8083-4e1656ba5651&query=no+image
+
