@@ -51,6 +51,10 @@ will prevail.
 
 ![no image](MyPurchasedBook/wwwroot/Contents/img/no_image.jpg)
 
+<a href="https://www.flaticon.com/free-icons/letter-m" title="letter m icons">Letter m icons created by Icon Place - Flaticon</a>
+
+![letter-m](MyPurchasedBook/wwwroot/Contents/logo/letter-m.png)
+
 ### Thank for these libraries
 * https://getbootstrap.com/
 * https://stefangabos.github.io/Zebra_Datepicker/
