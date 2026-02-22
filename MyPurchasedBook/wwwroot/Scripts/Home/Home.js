@@ -32,7 +32,6 @@
                 url: `${self.location.href}api/Book/GetBook`,
                 type: "GET",
                 success: function (data) {
-                    console.log(data)
                     if (data.length > 0) {
                         document.getElementById('custom-cards').replaceChildren();
                         const perRow = 3
@@ -82,8 +81,6 @@
                 contentType: "application/json",
             }).done((res) => {
                 let data = thisClass.SetDataSelect2(res)
-                console.log('GetAuthorList')
-                console.log(data)
                 $('#AuthorSelect2').select2({
                     dropdownParent: $('#AddModal'),
                     tags: true,
@@ -106,8 +103,6 @@
                 contentType: "application/json",
             }).done((res) => {
                 let data = thisClass.SetDataSelect2(res)
-                console.log('GetPublisherList')
-                console.log(data)
                 $('#PublisherSelect2').select2({
                     dropdownParent: $('#AddModal'),
                     tags: true,
@@ -130,8 +125,6 @@
                 contentType: "application/json",
             }).done((res) => {
                 let data = thisClass.SetDataSelect2(res)
-                console.log('GetCategoriesList')
-                console.log(data)
                 $('#CategoriesSelect2').select2({
                     dropdownParent: $('#AddModal'),
                     tags: true,
@@ -172,7 +165,7 @@
 
                 const img = document.createElement("img");
                 img.height = 400;
-                img.src = `data:${value.ImageType};base64, ${value.Image}`;
+                img.src = value.Image ? `data:${value.ImageType};base64, ${value.Image}` : 'Contents/img/no_image.jpg';
                 img.alt = `${value.Title}`
                 img.onclick = () => {
                     let htmlbody = `<div class="row">
@@ -245,7 +238,7 @@
                                     }
                                 }
                                 $('#CategoriesSelect2').trigger('change');
-                            } 
+                            }
 
                             document.getElementById('Description').value = `${value.Description}`
 
@@ -262,7 +255,7 @@
                                 // Assign the file list to the input element
                                 document.getElementById('Image').files = dataTransfer.files;
                                 $('#Image').trigger('change')
-                                    
+
                                 document.getElementById('output').src = `data:${value.ImageType};base64, ${value.Image}`;
                                 document.getElementById('divImage').classList.remove('d-none')
                             }
@@ -270,7 +263,7 @@
                             document.getElementById('Price').value = `${parseFloat(value.Price).toFixed(2)}`
 
 
-                            
+
                             !Swal.isLoading()
                             $('.swal2-close').trigger('click')
                         } else if (result.isDenied) {
